@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <title>ΠΑΙΧΝΙΔΙΑ ΟΠΑΠ</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Place your stylesheet here-->
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+
+    <h4 class="ml3">ΜΑΥΡΟΜΑΤΙΔΗΣ ΑΓΓΕΛΟΣ &nbsp; ΠΡΑΚΤΟΡΕΙΟ ΟΠΑΠ &nbsp; ΜΑΙΑΝΔΡΟΥ 32</h4>
+
+    <div class="row text-center mx-5 main1" style="height: 50%">
+
+
+        <div class="col-md-4 p-1 h-100">
+
+            <div class="card h-100">
+
+                <div class="" style="height: 15%">
+                    <img src="img/joker2.jpg" alt="joker" class="h-100 w-100">
+                    <div id="clockdiv">
+                        <div>
+                            <span class="days"></span>
+                            <div class="smalltext">ΗΜΕΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">ΩΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">ΛΕΠΤΑ</div>
+                        </div>
+                        <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">ΔΕΥΤΕΡΑ</div>
+                        </div>
+                    </div>
+                    <div class="jakpot" id="jakpot"></div>
+                </div>
+
+                <div class="kltime">
+                    <span class="r" id="time"></span>
+                    <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+                    <span class="l" id="kl"></span>
+                </div>
+
+                <div class="circle">
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="joker1">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="joker2">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="joker3">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="joker4">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="joker5">
+                        </strong>
+                    </span>
+                    <span class="fa fa-plus" style="color: white;"></span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x" style="color: red"></span>
+                        <strong class="fa-stack-1x" id="joker6" style="color: white">
+                        </strong>
+                    </span>
+                </div>
+
+                <table style="width:100%; height: 66%">
+                    <tr>
+                        <th>Κατηγορίες</th>
+                        <th>Διανεμόμενα</th>
+                        <th>Επιτυχίες</th>
+                        <th>Κέρδη</th>
+                    </tr>
+                    <tr>
+                        <td>5 + 1</td>
+                        <td id="a"></td>
+                        <td id="b"></td>
+                        <td id="c"></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td id="a5"></td>
+                        <td id="b5"></td>
+                        <td id="c5"></td>
+                    </tr>
+                    <tr>
+                        <td>4 + 1</td>
+                        <td id="a41"></td>
+                        <td id="b41"></td>
+                        <td id="c41"></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td id="a4"></td>
+                        <td id="b4"></td>
+                        <td id="c4"></td>
+                    </tr>
+                    <tr>
+                        <td>3 + 1</td>
+                        <td id="a31"></td>
+                        <td id="b31"></td>
+                        <td id="c31"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td id="a3"></td>
+                        <td id="b3"></td>
+                        <td id="c3"></td>
+                    </tr>
+                    <tr>
+                        <td>2 + 1</td>
+                        <td id="a21"></td>
+                        <td id="b21"></td>
+                        <td id="c21"></td>
+                    </tr>
+                    <tr>
+                        <td>1 + 1</td>
+                        <td id="a11"></td>
+                        <td id="b11"></td>
+                        <td id="c11"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4 p-1 h-100">
+
+            <div class="card h-100">
+
+                <div style="height: 15%">
+                    <img src="img/lotto.jpg" alt="lottoimg" class="h-100 w-100">
+                    <div id="clockdiv2">
+                        <div>
+                            <span class="days"></span>
+                            <div class="smalltext">ΗΜΕΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">ΩΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">ΛΕΠΤΑ</div>
+                        </div>
+                        <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">ΔΕΥΤΕΡΑ</div>
+                        </div>
+                    </div>
+                    <div id="jakpotlotto" style="color: blue"></div>
+                </div>
+
+                <div class="kltime">
+                    <span class="r" id="timeLotto"></span>
+                    <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+                    <span class="l" id="klLotto"></span>
+                </div>
+
+                <div class="circle">
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="lotto1">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="lotto2">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="lotto3">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="lotto4">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="lotto5">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="lotto6">
+                        </strong>
+                    </span>
+                    <span class="fa fa-plus" style="color: white"></span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x" style="color: red"></span>
+                        <strong class="fa-stack-1x" id="lotto7" style="color: white">
+                        </strong>
+                    </span>
+                </div>
+
+                <table style="width:100%; height: 66%">
+                    <tr>
+                        <th>Κατηγορίες</th>
+                        <th>Διανεμόμενα</th>
+                        <th>Επιτυχίες</th>
+                        <th>Κέρδη</th>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td id="d6"></td>
+                        <td id="e6"></td>
+                        <td id="f6"></td>
+                    </tr>
+                    <tr>
+                        <td>5 + 1</td>
+                        <td id="d51"></td>
+                        <td id="e51"></td>
+                        <td id="f51"></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td id="d5"></td>
+                        <td id="e5"></td>
+                        <td id="f5"></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td id="d4"></td>
+                        <td id="e4"></td>
+                        <td id="f4"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td id="d3"></td>
+                        <td id="e3"></td>
+                        <td id="f3"></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-md-4 p-1 h-100">
+
+            <div class="card h-100">
+
+                <div style="width:100%; height: 15%">
+                    <img src="img/proto.jpg" alt="protoimg" class="h-100 w-100">
+                    <div id="clockdiv3">
+                        <div>
+                            <span class="days"></span>
+                            <div class="smalltext">ΗΜΕΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">ΩΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">ΛΕΠΤΑ</div>
+                        </div>
+                        <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">ΔΕΥΤΕΡΑ</div>
+                        </div>
+                    </div>
+                    <div id="jakpotproto"></div>
+                </div>
+
+                <div class="kltime">
+                    <span class="r" id="timeproto"></span>
+                    <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+                    <span class="l" id="klproto"></span>
+                </div>
+
+                <div class="circle">
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="proto1">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="proto2">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="proto3">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="proto4">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="proto5">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="proto6">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="proto7">
+                        </strong>
+                    </span>
+                </div>
+
+                <table style="width:100%; height: 66%">
+                    <tr>
+                        <th>Κατ/ίες</th>
+                        <th>Διανεμόμενα</th>
+                        <th>Αριθμοί</th>
+                        <th>Επιτυχίες</th>
+                        <th>Κέρδη</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td id="p1"></td>
+                        <td id="p2"></td>
+                        <td id="p3"></td>
+                        <td id="p4"></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td id=""></td>
+                        <td id="ps2"></td>
+                        <td id="ps3"></td>
+                        <td id="ps4"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td id=""></td>
+                        <td id="pt2"></td>
+                        <td id="pt3"></td>
+                        <td id="pt4"></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td id=""></td>
+                        <td id="pf2"></td>
+                        <td id="pf3"></td>
+                        <td id="pf4"></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td id=""></td>
+                        <td id="pfi2"></td>
+                        <td id="pfi3"></td>
+                        <td id="pfi4"></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td id=""></td>
+                        <td id="psi2"></td>
+                        <td id="psi3"></td>
+                        <td id="psi4"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center main2 mx-5 mt-2">
+
+        <div class="col-md-4 p-1">
+
+            <div class="card h-100">
+
+                <div style="height: 15%">
+                    <img src="img/kino2.jpg" alt="kino" class="h-100 w-100">
+                </div>
+                <div class="kltime">
+                    <span class="r" id="timekino"></span>
+                    <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+                    <span class="l" id="klkino"></span>
+                </div>
+
+                <div class="circle kn">
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background1"></span>
+                        <strong class="fa-stack-1x" id="kino1">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background2"></span>
+                        <strong class="fa-stack-1x" id="kino2">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background3"></span>
+                        <strong class="fa-stack-1x" id="kino3">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background4"></span>
+                        <strong class="fa-stack-1x" id="kino4">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background5"></span>
+                        <strong class="fa-stack-1x" id="kino5">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background6"></span>
+                        <strong class="fa-stack-1x" id="kino6">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background7"></span>
+                        <strong class="fa-stack-1x" id="kino7">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background8"></span>
+                        <strong class="fa-stack-1x" id="kino8">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background9"></span>
+                        <strong class="fa-stack-1x" id="kino9">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background10"></span>
+                        <strong class="fa-stack-1x" id="kino10">
+                        </strong>
+                    </span><br>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background11"></span>
+                        <strong class="fa-stack-1x" id="kino11">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background12"></span>
+                        <strong class="fa-stack-1x" id="kino12">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background13"></span>
+                        <strong class="fa-stack-1x" id="kino13">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background14"></span>
+                        <strong class="fa-stack-1x" id="kino14">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background15"></span>
+                        <strong class="fa-stack-1x" id="kino15">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background16"></span>
+                        <strong class="fa-stack-1x" id="kino16">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background17"></span>
+                        <strong class="fa-stack-1x" id="kino17">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background18"></span>
+                        <strong class="fa-stack-1x" id="kino18">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background19"></span>
+                        <strong class="fa-stack-1x" id="kino19">
+                        </strong>
+                    </span>
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x icon-background20"></span>
+                        <strong class="fa-stack-1x" id="kino20">
+                        </strong>
+                    </span>
+                </div>
+
+
+                <table style="font-size: 1.5em; height: 10%">
+                    <tr>
+                        <th><span>ΜΟΝΑ</span></th>
+                        <th><span>ΖΥΓΑ</span></th>
+                        <th><span>ΣΤΗΛΗ</span></th>
+                    </tr>
+                    <tr>
+                        <td><span id="len"></span></td>
+                        <td><span id="len2"></span></td>
+                        <td><span id="st"></span></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-md-4 p-1">
+
+            <div class="card h-100">
+
+                <div style="width:100%; height: 15%">
+                    <img src="img/super3a.jpg" alt="super3img" class="h-100 w-100">
+                    <div id="clockdiv4">
+                        <div>
+                            <span class="days"></span>
+                            <div class="smalltext">ΗΜΕΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">ΩΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">ΛΕΠΤΑ</div>
+                        </div>
+                        <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">ΔΕΥΤΕΡΑ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kltime">
+                    <span class="r" id="timesuper3"></span>
+                    <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+                    <span class="l" id="klsuper3"></span>
+                </div>
+
+                <div class="circle">
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="super31">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="super32">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="super33">
+                        </strong>
+                    </span>
+
+                </div>
+
+                <table style="width:100%; height: 63%">
+                    <tr>
+                        <th class="w-25">Κατηγορίες</th>
+                        <th>Επιτυχίες</th>
+                        <th>Κέρδη</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td id="s2"></td>
+                        <td id="s3"></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td id="s5"></td>
+                        <td id="s6"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td id="s8"></td>
+                        <td id="s9"></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td id="s11"></td>
+                        <td id="s12"></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td id="s14"></td>
+                        <td id="s15"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4 p-1">
+
+            <div class="card h-100">
+
+                <div style="width:100%; height: 15%">
+                    <img src="img/extra5a.jpg" alt="super3img" style="width:100%; height: 100%">
+                    <div id="clockdiv5">
+                        <div>
+                            <span class="days"></span>
+                            <div class="smalltext">ΗΜΕΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">ΩΡΕΣ</div>
+                        </div>
+                        <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">ΛΕΠΤΑ</div>
+                        </div>
+                        <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">ΔΕΥΤΕΡΑ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kltime">
+                    <span class="r" id="timeextra5"></span>
+                    <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+                    <span class="l" id="klextra5"></span>
+                </div>
+
+                <div class="circle">
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="extra51">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="extra52">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="extra53">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="extra54">
+                        </strong>
+                    </span>
+
+                    <span class="fa-stack">
+                        <span class="fa fa-circle fa-stack-2x"></span>
+                        <strong class="fa-stack-1x" id="extra55">
+                        </strong>
+                    </span>
+
+                </div>
+
+                <table style="width:100%; height: 63%">
+                    <tr>
+                        <th class="w-25">Κατηγορίες</th>
+                        <th>Επιτυχίες</th>
+                        <th>Κέρδη</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td id="ex2"></td>
+                        <td id="ex3"></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td id="ex5"></td>
+                        <td id="ex6"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td id="ex8"></td>
+                        <td id="ex9"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="joker.js"></script>
+    <script src="lotto.js"></script>
+    <script src="proto.js"></script>
+    <script src="kino.js"></script>
+    <script src="super3.js"></script>
+    <script src="extra5.js"></script>
+    <script src="serveropap.js"></script>
+    <script src="anime.js"></script>
+    
+</body></html>
