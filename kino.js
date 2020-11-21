@@ -72,6 +72,63 @@ setInterval(function () {
 
                     e.classList.add('flas');
                     
+                    //poses fores vgikane stis teleytaies 10.
+                    var con = [];
+
+                    con = data[1].winningNumbers.list.concat(data[2].winningNumbers.list, data[3].winningNumbers.list, data[4].winningNumbers.list, data[5].winningNumbers.list, data[6].winningNumbers.list, data[7].winningNumbers.list, data[8].winningNumbers.list, data[9].winningNumbers.list, data[10].winningNumbers.list, data[11].winningNumbers.list, data[12].winningNumbers.list, data[13].winningNumbers.list, data[14].winningNumbers.list, data[15].winningNumbers.list);
+
+                    var count = function (array) {
+                        "use strict";
+                        var result = [];
+                        if (Array.isArray(con)) { // Check if input is array.
+                            con.forEach(function (v, i) {
+                                if (!result[v]) { // Initial object property creation.
+                                    result[v] = [i]; // Create an array for that property.
+
+                                } else { // Same occurrences found.
+                                    result[v].push(i); // Fill the array.
+
+                                }
+                            });
+
+                        }
+                        return result;
+                    };
+                    
+                    
+                    
+                    var lengths = [];
+                    lengths = count().map(function (word) {
+                        return word.length > 5;
+                    });
+
+                    //poses fores vgikan
+                    var indices = lengths.reduce(
+                        (out, bool, index) => bool ? out.concat(index) : out, []
+                    )
+      
+                    
+                    
+                    //tyxaia noymera
+                    var indices2 = [];
+                    for (var i = 0; i < 5; i++) {
+                        indices2.push(indices[Math.floor(Math.random() * indices.length)]);
+             
+                    }
+                    //an einai ali8is
+                    function isTrue(arr, arr2) {
+                        return arr.every(i => arr2.includes(i));
+                    }
+
+                    var k = isTrue(indices2, data[1].winningNumbers.list);
+
+                    if (k == true) {
+                        alert('WIN')
+                    }
+                    console.log(k)
+                    console.log(indices2);
+                    console.log(indices);
+                    console.log(data[2].winningNumbers.list);
                 });
             }
         )
