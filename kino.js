@@ -43,8 +43,8 @@ setInterval(function () {
                     var kino20 = document.getElementById('kino20').innerHTML = data[1].winningNumbers.list["19"];
 
 
-                    document.getElementById('len').innerHTML = data[1].winningNumbers.sidebets.evenNumbersCount;
-                    document.getElementById('len2').innerHTML = data[1].winningNumbers.sidebets.oddNumbersCount;
+                    document.getElementById('len2').innerHTML = data[1].winningNumbers.sidebets.evenNumbersCount;
+                    document.getElementById('len').innerHTML = data[1].winningNumbers.sidebets.oddNumbersCount;
                     document.getElementById('st').innerHTML = data[1].winningNumbers.sidebets.winningColumn;
 
 
