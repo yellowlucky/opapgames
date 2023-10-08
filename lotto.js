@@ -25,8 +25,6 @@ setInterval(function () {
                     document.getElementById('lotto4').innerHTML = data[1].winningNumbers.list["3"];
                     document.getElementById('lotto5').innerHTML = data[1].winningNumbers.list["4"];
                     document.getElementById('lotto6').innerHTML = data[1].winningNumbers.list["5"];
-                    document.getElementById('lotto7').innerHTML = data[1].winningNumbers.bonus["0"];
-
 
                     var jak = document.getElementById('jakpotlotto').innerHTML = parseInt(data[0].prizeCategories[0].jackpot + data[1].prizeCategories["0"].distributed);
                     document.getElementById('d6').innerHTML = parseInt(data[1].prizeCategories[0].jackpot + data[1].prizeCategories[0].distributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
