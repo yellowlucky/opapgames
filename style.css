@@ -54,7 +54,7 @@ body {
 #clockdiv4,
 #clockdiv5 {
     position: relative;
-    margin-top: -11%;
+    margin-top: -12%;
     float: right;
     width: 50%;
     font-family: sans-serif;
@@ -130,7 +130,7 @@ span.fa-circle {
 }
 
 .ml3 {
-    font-weight: 900;
+    font-weight: 800;
     font-size: 1.3em;
     color: #faee05;
     text-align: center;
@@ -143,35 +143,4 @@ span.fa-circle {
 
 .flas {
     color: white;
-}
-
-@-webkit-keyframes flip {
-    0% {
-        -webkit-transform: translateX(0);
-        transform: rotateY(0deg);
-    }
-
-    50% {
-        -webkit-transform: translateX(180);
-        transform: rotateY(180deg);
-    }
-
-    100% {
-        -webkit-transform: translateX(0);
-        transform: rotateY(0deg);
-    }
-}
-
-@keyframes flip {
-    0% {
-        transform: rotateX(0deg);
-    }
-
-    50% {
-        transform: rotateX(180deg);
-    }
-
-    100% {
-        transform: rotateX(0deg);
-    }
 }

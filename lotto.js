@@ -24,7 +24,7 @@ setInterval(function () {
                     document.getElementById('lotto3').innerHTML = data[1].winningNumbers.list["2"];
                     document.getElementById('lotto4').innerHTML = data[1].winningNumbers.list["3"];
                     document.getElementById('lotto5').innerHTML = data[1].winningNumbers.list["4"];
-                    document.getElementById('lotto6').innerHTML = data[1].winningNumbers.list["5"];
+                    document.getElementById('lotto6').innerHTML = data[1].winningNumbers.list["5"];             
 
                     var jak = document.getElementById('jakpotlotto').innerHTML = parseInt(data[0].prizeCategories[0].jackpot + data[1].prizeCategories["0"].distributed);
                     document.getElementById('d6').innerHTML = parseInt(data[1].prizeCategories[0].jackpot + data[1].prizeCategories[0].distributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -75,11 +75,13 @@ setInterval(function () {
                         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                         // Output the result in an element with id="t"
                         document.querySelector('#clockdiv2 > div:nth-child(1) > span').innerHTML = ('0' + days).slice(-2);
                         document.querySelector('#clockdiv2 > div:nth-child(2) > span').innerHTML = ('0' + hours).slice(-2);
                         document.querySelector('#clockdiv2 > div:nth-child(3) > span').innerHTML = ('0' + minutes).slice(-2);
+                        document.querySelector('#clockdiv2 > div:nth-child(4) > span').innerHTML = ('0' + seconds).slice(-2);
 
                         // If the count down is over, write some text 
                         if (distance < 0) {

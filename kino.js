@@ -43,8 +43,8 @@ setInterval(function () {
                     var kino20 = document.getElementById('kino20').innerHTML = data[1].winningNumbers.list["19"];
 
 
-                    document.getElementById('len2').innerHTML = data[1].winningNumbers.sidebets.evenNumbersCount;
-                    document.getElementById('len').innerHTML = data[1].winningNumbers.sidebets.oddNumbersCount;
+                    document.getElementById('len').innerHTML = data[1].winningNumbers.sidebets.evenNumbersCount;
+                    document.getElementById('len2').innerHTML = data[1].winningNumbers.sidebets.oddNumbersCount;
                     document.getElementById('st').innerHTML = data[1].winningNumbers.sidebets.winningColumn;
 
 
@@ -70,9 +70,8 @@ setInterval(function () {
 
                     var e = document.getElementById('kino' + (ast + 1));
 
-                    e.classList.add('flas');
-                    
-              
+                    e.classList.add('flas');     
+
                 });
             }
         )
@@ -80,4 +79,4 @@ setInterval(function () {
             'use strict';
             console.log('Fetch Error :-S', err);
         });
-}, 9e3);
+}, 3e3);

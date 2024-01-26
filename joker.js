@@ -20,7 +20,7 @@ setInterval(function () {
                     arj.sort(function (a, b) {
                         return a - b
                     });
-
+                    console.log(data)
                     document.getElementById('joker1').innerHTML = data[1].winningNumbers.list["0"];
                     document.getElementById('joker2').innerHTML = data[1].winningNumbers.list["1"];
                     document.getElementById('joker3').innerHTML = data[1].winningNumbers.list["2"];
@@ -44,7 +44,7 @@ setInterval(function () {
                         jakpot.style.opacity = 0;
                     };
 
-                    document.getElementById('jakpot').innerHTML = '<span style="color: yellow;">ΤΖΑΚΠΟΤ : </span>' + (data[0].prizeCategories[0].minimumDistributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    jakpot.innerHTML = '<span style="color: yellow;">ΤΖΑΚΠΟΤ : </span>' + (data[0].prizeCategories[0].minimumDistributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 
                     document.querySelector('#a5').innerHTML = parseInt(data[1].prizeCategories[1].jackpot + data[1].prizeCategories[1].distributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -69,6 +69,9 @@ setInterval(function () {
                     document.getElementById('b11').innerHTML = (data[1].prizeCategories[7].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                     document.getElementById('c11').innerHTML = data[1].prizeCategories[7].divident;
 
+                    document.getElementById('b2').innerHTML = (data[1].prizeCategories[8].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    document.getElementById('c2').innerHTML = data[1].prizeCategories[8].divident;
+
                     // Set the date we're counting down to
                     var countDownDate = new Date(data[0].drawTime).getTime();
 
@@ -85,11 +88,13 @@ setInterval(function () {
                         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                         // Output the result in an element with id="t"
                         document.querySelector('.days').innerHTML = ('0' + days).slice(-2);
                         document.querySelector('.hours').innerHTML = ('0' + hours).slice(-2);
                         document.querySelector('.minutes').innerHTML = ('0' + minutes).slice(-2);
+                        document.querySelector('.seconds').innerHTML = ('0' + seconds).slice(-2);
 
                         // If the count down is over, write some text 
                         if (distance < 0) {
@@ -106,3 +111,24 @@ setInterval(function () {
             console.log('Fetch Error :-S', err);
         });
 }, 9e3);
+
+// Wrap every letter in a span
+var textWrapper = document.querySelector('.ml3');
+textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+anime.timeline({loop: true})
+  .add({
+    targets: '.ml3 .letter',
+    opacity: [0,1],
+    easing: "easeInOutQuad",
+    duration: 2250,
+    delay: (el, i) => 150 * (i+1)
+  }).add({
+    targets: '.ml3',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+  
+  
