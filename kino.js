@@ -35,8 +35,7 @@ tbl.appendChild(tblBody);
 document.querySelector('#kino').appendChild(tbl);
 tbl.setAttribute("id", "first");
 tbl.style.width = '100%'
-tbl.style.height = '84%'
-tbl.style.fontSize = '2vh'
+tbl.style.fontSize = '1.9vh'
 tbl.style.color = "white"
 
 setInterval(function () {
@@ -96,7 +95,7 @@ fetch('https://api.opap.gr/draws/v3.0/1100/last/10')
                     (node) => {
                         node.style.background = '';
                             node.style.color = '';
-                            node.style.borderRadius = "0px"
+                            
                         node.style.border = '1px solid black';
                         if (data[1].winningNumbers.list.includes(Number(node.innerHTML))) {
                             node.style.background = '#ffdd50';
