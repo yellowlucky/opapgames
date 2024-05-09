@@ -2,8 +2,6 @@ html,
 body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-size: calc(1vw + 1vh + -1vmin);
 
     /* ms ( IE 10.0+ ) */
     background: -ms-linear-gradient(180deg, rgba(0, 0, 0, 1) 0.14%, rgba(8, 98, 232, 1) 49.35%, rgba(0, 0, 0, 1) 99.46%);
@@ -59,7 +57,7 @@ body {
     width: 50%;
     font-family: sans-serif;
     color: #fff;
-    display: inline-block;
+    display: block;
     text-align: center;
     font-weight: bold;
     background: rgba(0, 0, 0, 0.3);
@@ -96,10 +94,6 @@ body {
     margin-left: 5px;
 }
 
-th {
-    color: yellow;
-}
-
 tr:nth-child(even) {
     background-color: #213344;
 
@@ -125,15 +119,11 @@ span.fa-circle {
     font-size: 1.1em;
 }
 
-.kn {
-    font-size: 1.3em;
-}
 
 .ml4 {
     font-weight: 1000;
     font-size: 1.5em;
     color: #faee05;
-    text-align: center;
     font-family: 'Permanent Marker', cursive;
 }
 
@@ -143,4 +133,27 @@ span.fa-circle {
 
 .flas {
     color: white;
+}
+
+#he {
+  background-image: url('img/kino-logo.png'); /* Replace 'your-image-url.jpg' with the actual URL of your image */
+  background-size:  14%; /* This ensures the image covers the entire background */
+  background-position: center; /* This centers the image horizontally and vertically */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  display: flex;
+  flex-wrap: wrap;
+  }
+
+  #he> span{
+    padding: 15px;
+    color: #ffffff;
+  }
+
+  #first  tr {
+    background-color: #213344;
+    font-size: 1.25em;
+}
+
+#kino {
+    height: 40vh;
 }

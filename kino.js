@@ -1,82 +1,122 @@
+
+
+const tbl = document.createElement("table");
+
+const tblBody = document.createElement("tbody");
+
+const row1 = document.createElement("tr");
+for (let i = 1; i < 11; i++) {
+    const cel = document.createElement("td");
+    const cellTex = document.createTextNode(`${i}`);
+    cel.appendChild(cellTex)
+    row1.appendChild(cel);
+}
+
+tblBody.appendChild(row1);
+let cellText
+
+for (let i = 1; i < 8; i++) {
+
+    const row = document.createElement("tr");
+
+    for (let j = 1; j < 11; j++) {
+
+        const cell = document.createElement("td");
+
+        cellText = j > 9 ? document.createTextNode(i * j + 10) : document.createTextNode(`${i}${j}`);
+
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+
+    }
+    tblBody.appendChild(row);
+}
+tbl.appendChild(tblBody);
+document.querySelector('#kino').appendChild(tbl);
+tbl.setAttribute("id", "first");
+tbl.style.width = '100%'
+tbl.style.height = '84%'
+tbl.style.fontSize = '2vh'
+tbl.style.color = "white"
+
 setInterval(function () {
-    'use strict';
+fetch('https://api.opap.gr/draws/v3.0/1100/last/10')
+    .then(
+        function (response) {
+            if (response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' +
+                    response.status);
+                return;
+            }
+            response.json().then(function (data) {
 
-    fetch('https://api.opap.gr/draws/v3.0/1100/last/31')
-        .then(
-            function (response) {
+                "use strict"
 
-                if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' + response.status);
-                    return;
+                let td = document.querySelectorAll("#first td");
+
+                let winArray = data[1].winningNumbers.list
+
+                function generateRandomNumbers(count, max) {
+                    const numbers = [];
+                    for (let i = 1; i <= max; i++) {
+                        numbers.push(i);
+                    }
+                    for (let i = max - 1; i >= max - count; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+                    }
+                    return numbers.slice(max - count, max);
                 }
 
-                return response.json().then(function (data) {
+                const randomNumbers = generateRandomNumbers(10, 80);
+                const commonElements = winArray.filter(element => randomNumbers.includes(element));
 
-                    var date = data[1].drawTime;
-                    document.getElementById('timekino').innerHTML = new Date(date).toLocaleDateString('gr-GR');
-                    document.getElementById('klkino').innerHTML = 'ΚΛΗΡΩΣΗ:' + data[1].drawId;
+                console.log(data[1].drawId)
+                let klirosi = document.querySelector('#klk')
+                klirosi.innerHTML = 'ΚΛΗΡΩΣΗ:' + data[1].drawId
+                klirosi.style.Align = 'left'
+                let ora = document.querySelector('#or')
+                // Υποθέτουμε ότι έχουμε λάβει δεδομένα από το API και αποθηκεύουμε την ώρα σε μια μεταβλητή (π.χ. response)
+                const response = {
+                    time: data[1].drawTime
+                };
 
-                    var are = data[1].winningNumbers.list;
-                    are.sort(function (a, b) {
-                        return a - b;
-                    });
+                // Δημιουργούμε ένα αντικείμενο Date από την ώρα που λάβαμε από το API
+                const apiTime = new Date(response.time);
 
-                    var kino1 = document.getElementById('kino1').innerHTML = data[1].winningNumbers.list["0"];
-                    var kino2 = document.getElementById('kino2').innerHTML = data[1].winningNumbers.list["1"];
-                    var kino3 = document.getElementById('kino3').innerHTML = data[1].winningNumbers.list["2"];
-                    var kino4 = document.getElementById('kino4').innerHTML = data[1].winningNumbers.list["3"];
-                    var kino5 = document.getElementById('kino5').innerHTML = data[1].winningNumbers.list["4"];
-                    var kino6 = document.getElementById('kino6').innerHTML = data[1].winningNumbers.list["5"];
-                    var kino7 = document.getElementById('kino7').innerHTML = data[1].winningNumbers.list["6"];
-                    var kino8 = document.getElementById('kino8').innerHTML = data[1].winningNumbers.list["7"];
-                    var kino9 = document.getElementById('kino9').innerHTML = data[1].winningNumbers.list["8"];
-                    var kino10 = document.getElementById('kino10').innerHTML = data[1].winningNumbers.list["9"];
-                    var kino11 = document.getElementById('kino11').innerHTML = data[1].winningNumbers.list["10"];
-                    var kino12 = document.getElementById('kino12').innerHTML = data[1].winningNumbers.list["11"];
-                    var kino13 = document.getElementById('kino13').innerHTML = data[1].winningNumbers.list["12"];
-                    var kino14 = document.getElementById('kino14').innerHTML = data[1].winningNumbers.list["13"];
-                    var kino15 = document.getElementById('kino15').innerHTML = data[1].winningNumbers.list["14"];
-                    var kino16 = document.getElementById('kino16').innerHTML = data[1].winningNumbers.list["15"];
-                    var kino17 = document.getElementById('kino17').innerHTML = data[1].winningNumbers.list["16"];
-                    var kino18 = document.getElementById('kino18').innerHTML = data[1].winningNumbers.list["17"];
-                    var kino19 = document.getElementById('kino19').innerHTML = data[1].winningNumbers.list["18"];
-                    var kino20 = document.getElementById('kino20').innerHTML = data[1].winningNumbers.list["19"];
+                // Παίρνουμε τις ώρες, τα λεπτά και τα δευτερόλεπτα από το αντικείμενο Date
+                const hours = apiTime.getHours();
+                const minutes = apiTime.getMinutes();
+                const seconds = apiTime.getSeconds();
 
-
-                    document.getElementById('len').innerHTML = data[1].winningNumbers.sidebets.evenNumbersCount;
-                    document.getElementById('len2').innerHTML = data[1].winningNumbers.sidebets.oddNumbersCount;
-                    document.getElementById('st').innerHTML = data[1].winningNumbers.sidebets.winningColumn;
-
-
-                    //bonus painting
-                    var bonus = data[1].winningNumbers.bonus[0];
-
-                    function findFirst(element) {
-
-                        return element == bonus;
-
+                // Εμφανίζουμε τη σωστή ώρα στο κατάλληλο format (π.χ., 15:30:00)
+                const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                ora.innerHTML = 'ΩΡΑ:' + formattedTime
+                td.forEach(
+                    (node) => {
+                        node.style.background = '';
+                            node.style.color = '';
+                            node.style.borderRadius = "0px"
+                        node.style.border = '1px solid black';
+                        if (data[1].winningNumbers.list.includes(Number(node.innerHTML))) {
+                            node.style.background = '#ffdd50';
+                            node.style.color = 'black';
+                            
+                        }
+                        if (data[1].winningNumbers.bonus.includes(Number(node.innerHTML))) { 
+                            node.style.background = 'red';
+                        node.style.color = 'white';
+                       
+                        }
                     }
+                );
 
-                    var ast = are.findIndex(findFirst);
+            });
+            
+        }
+    )
+    .catch(function (err) {
+        console.log('Fetch Error :-S', err);
+    });
+}, 2e3);
 
-                    var s = document.querySelector('.icon-background' + (ast + 1));
-
-                    var d = parseFloat(document.getElementById('kino' + (ast + 1)).innerHTML);
-
-                    $('.kn').find('.red').removeClass('red');
-                    $('.kn').find('.flas').removeClass('flas');
-
-                    d == bonus ? s.classList.add('red') : '';
-
-                    var e = document.getElementById('kino' + (ast + 1));
-
-                    e.classList.add('flas');     
-
-                });
-            }
-        )
-        .catch(function (err) {
-            'use strict';
-            console.log('Fetch Error :-S', err);
-        });
-}, 3e3);
