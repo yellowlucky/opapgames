@@ -1,7 +1,7 @@
 html,
 body {
     margin: 0;
-    padding: 5px:
+    padding: 5px;
     font-size: calc(1vw + 1vh + -1vmin);
     
     /* ms ( IE 10.0+ ) */
