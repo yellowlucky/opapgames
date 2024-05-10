@@ -2,8 +2,7 @@ html,
 body {
     margin: 0;
     padding: 0;
-    font-size: calc(1vw + 1vh + -1vmin);
-    
+
     /* ms ( IE 10.0+ ) */
     background: -ms-linear-gradient(180deg, rgba(0, 0, 0, 1) 0.14%, rgba(8, 98, 232, 1) 49.35%, rgba(0, 0, 0, 1) 99.46%);
 
@@ -138,7 +137,7 @@ span.fa-circle {
 
 #he {
   background-image: url('img/kino-logo.png'); /* Replace 'your-image-url.jpg' with the actual URL of your image */
-  background-size:  14%; /* This ensures the image covers the entire background */
+  background-size:  14%;
   background-position: center; /* This centers the image horizontally and vertically */
   background-repeat: no-repeat; /* Prevents the image from repeating */
   display: flex;
@@ -155,6 +154,3 @@ span.fa-circle {
     font-size: 1.25em;
 }
 
-#kino {
-    height: 40vh;
-}

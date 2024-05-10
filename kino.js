@@ -35,8 +35,9 @@ tbl.appendChild(tblBody);
 document.querySelector('#kino').appendChild(tbl);
 tbl.setAttribute("id", "first");
 tbl.style.width = '100%'
-tbl.style.fontSize = '1.9vh'
+tbl.style.fontSize = '0.9em'
 tbl.style.color = "white"
+
 
 setInterval(function () {
 fetch('https://api.opap.gr/draws/v3.0/1100/last/10')
@@ -66,9 +67,6 @@ fetch('https://api.opap.gr/draws/v3.0/1100/last/10')
                     }
                     return numbers.slice(max - count, max);
                 }
-
-                const randomNumbers = generateRandomNumbers(10, 80);
-                const commonElements = winArray.filter(element => randomNumbers.includes(element));
 
                 console.log(data[1].drawId)
                 let klirosi = document.querySelector('#klk')
@@ -104,7 +102,7 @@ fetch('https://api.opap.gr/draws/v3.0/1100/last/10')
                         }
                         if (data[1].winningNumbers.bonus.includes(Number(node.innerHTML))) { 
                             node.style.background = 'red';
-                        node.style.color = 'white';
+                            node.style.color = 'white';
                        
                         }
                     }
