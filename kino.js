@@ -68,7 +68,7 @@ fetch('https://api.opap.gr/draws/v3.0/1100/last/10')
                     return numbers.slice(max - count, max);
                 }
 
-                console.log(data[1].drawId)
+                console.log(data[1])
                 let klirosi = document.querySelector('#klk')
                 klirosi.innerHTML = 'ΚΛΗΡΩΣΗ:' + data[1].drawId
                 klirosi.style.Align = 'left'
