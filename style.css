@@ -154,4 +154,37 @@ span.fa-circle {
     background-color: #213344;
     font-size: 1.25em;
 }
+/* Responsive adjustments for tablets and phones */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    padding: 10px;
+  }
 
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  input[type="number"],
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, h2, h3 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .game-result {
+    font-size: 1rem;
+  }
+}
