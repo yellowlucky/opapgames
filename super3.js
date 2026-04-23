@@ -1,75 +1,90 @@
-setInterval(function () {
+(function () {
     'use strict';
-    fetch('https://api.opap.gr/draws/v3.0/2100/last/2')
-        .then(
-            function (response) {
-                'use strict';
-                if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' + response.status);
-                    return;
-                }
 
-                response.json().then(function (data) {
-
-                    var date = data[1].drawTime;
-                    document.getElementById('timesuper3').innerHTML = new Date(date).toLocaleDateString('gr-GR');
-                    document.getElementById('klsuper3').innerHTML = 'ΚΛΗΡΩΣΗ:' + data[1].drawId;
-
-                    document.getElementById('super31').innerHTML = data[1].winningNumbers.list["0"];
-                    document.getElementById('super32').innerHTML = data[1].winningNumbers.list["1"];
-                    document.getElementById('super33').innerHTML = data[1].winningNumbers.list["2"];
-
-                    document.getElementById('s2').innerHTML = data[1].prizeCategories["0"].winners;
-                    document.getElementById('s3').innerHTML = data[1].prizeCategories["0"].fixed;
-
-                    document.getElementById('s5').innerHTML = data[1].prizeCategories["1"].winners;
-                    document.getElementById('s6').innerHTML = data[1].prizeCategories[1].fixed;
-
-                    document.getElementById('s8').innerHTML = data[1].prizeCategories[2].winners;
-                    document.getElementById('s9').innerHTML = data[1].prizeCategories[2].fixed;
-
-                    document.getElementById('s11').innerHTML = data[1].prizeCategories[3].winners;
-                    document.getElementById('s12').innerHTML = data[1].prizeCategories[3].fixed;
-
-                    document.getElementById('s14').innerHTML = data[1].prizeCategories[4].winners;
-                    document.getElementById('s15').innerHTML = data[1].prizeCategories[4].fixed;
-
-                    // Set the date we're counting down to
-                    var countDownDate = new Date(data[0].drawTime).getTime();
-
-                    // Update the count down every 1 second
-                    var x = setInterval(function () {
-
-                        // Get today's date and time
-                        var now = new Date().getTime();
-
-                        // Find the distance between now and the count down date
-                        var distance = countDownDate - now;
-
-                        // Time calculations for days, hours, minutes and seconds
-                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                        document.querySelector('#clockdiv4 > div:nth-child(1) > span').innerHTML = ('0' + days).slice(-2);
-                        document.querySelector('#clockdiv4 > div:nth-child(2) > span').innerHTML = ('0' + hours).slice(-2);
-                        document.querySelector('#clockdiv4 > div:nth-child(3) > span').innerHTML = ('0' + minutes).slice(-2);
-                        document.querySelector('#clockdiv4 > div:nth-child(4) > span').innerHTML = ('0' + seconds).slice(-2);
-
-                        // If the count down is over, write some text 
-                        if (distance < 0) {
-                            clearInterval(x);
-
-                        }
-                    }, 1000);
-
-                });
-            }
-        )
-        .catch(function (err) {
-            'use strict';
-            console.log('Fetch Error :-S', err);
+    function findCategory(categories, id) {
+        return categories.find(function (category) {
+            return category.id === id;
         });
+    }
 
-}, 9e3);
+    function getColorMeta(colorName) {
+        var normalized = String(colorName || '').toLowerCase();
+
+        if (normalized === 'green') {
+            return { label: '\u03A0\u03C1\u03AC\u03C3\u03B9\u03BD\u03BF', value: '#22c55e', tint: 'rgba(34, 197, 94, 0.42)', strong: 'rgba(21, 128, 61, 0.48)', soft: 'rgba(34, 197, 94, 0.18)', text: '#ecfdf5' };
+        }
+
+        if (normalized === 'red') {
+            return { label: '\u039A\u03CC\u03BA\u03BA\u03B9\u03BD\u03BF', value: '#ff2020', tint: 'rgba(255, 32, 32, 0.58)', strong: 'rgba(228, 18, 40, 0.64)', soft: 'rgba(255, 32, 32, 0.26)', text: '#fff7f7' };
+        }
+
+        if (normalized === 'yellow') {
+            return { label: '\u039A\u03AF\u03C4\u03C1\u03B9\u03BD\u03BF', value: '#ffe119', tint: 'rgba(255, 225, 25, 0.5)', strong: 'rgba(230, 179, 8, 0.58)', soft: 'rgba(255, 225, 25, 0.22)', text: '#fffef2' };
+        }
+
+        if (normalized === 'blue') {
+            return { label: '\u039C\u03C0\u03BB\u03B5', value: '#3b82f6', tint: 'rgba(59, 130, 246, 0.42)', strong: 'rgba(29, 78, 216, 0.48)', soft: 'rgba(59, 130, 246, 0.18)', text: '#eff6ff' };
+        }
+
+        return { label: colorName || '-', value: '#ffffff', tint: 'rgba(255, 255, 255, 0.18)', strong: 'rgba(148, 163, 184, 0.42)', soft: 'rgba(148, 163, 184, 0.14)', text: '#ffffff' };
+    }
+
+    OpapApp.startPolling({
+        key: 'super3',
+        gameId: 2100,
+        intervalMs: 15000,
+        fetchCount: 2,
+        onData: function (data) {
+            var currentDraw = data[1];
+            var nextDraw = data[0];
+            var categories = currentDraw.prizeCategories;
+            var colorCategory1 = findCategory(categories, 4);
+            var colorCategory2 = findCategory(categories, 5);
+            var colorCategory3 = findCategory(categories, 6);
+            var colorName = currentDraw.winningNumbers &&
+                currentDraw.winningNumbers.sidebets &&
+                currentDraw.winningNumbers.sidebets.s3Color;
+            var colorMeta = getColorMeta(colorName);
+            var colorChip = document.getElementById('super3-color-chip');
+            var super3Circle = document.getElementById('super3-circle');
+            var super3Card = document.getElementById('super3-card');
+
+            OpapApp.updateDrawMeta('timesuper3', 'klsuper3', currentDraw);
+            OpapApp.renderNumberList(['super31', 'super32', 'super33'], currentDraw.winningNumbers.list);
+
+            OpapApp.setText('s2', categories[0].winners);
+            OpapApp.setText('s3', OpapApp.formatAmount(categories[0].fixed));
+            OpapApp.setText('s5', categories[1].winners);
+            OpapApp.setText('s6', OpapApp.formatAmount(categories[1].fixed));
+            OpapApp.setText('s8', categories[2].winners);
+            OpapApp.setText('s9', OpapApp.formatAmount(categories[2].fixed));
+
+            OpapApp.setText('sc2', colorCategory1 ? colorCategory1.winners : '-');
+            OpapApp.setText('sc3', colorCategory1 ? OpapApp.formatAmount(colorCategory1.fixed) : '-');
+            OpapApp.setText('sc5', colorCategory2 ? colorCategory2.winners : '-');
+            OpapApp.setText('sc6', colorCategory2 ? OpapApp.formatAmount(colorCategory2.fixed) : '-');
+            OpapApp.setText('sc8', colorCategory3 ? colorCategory3.winners : '-');
+            OpapApp.setText('sc9', colorCategory3 ? OpapApp.formatAmount(colorCategory3.fixed) : '-');
+
+            if (colorChip) {
+                colorChip.textContent = colorMeta.label;
+                colorChip.style.setProperty('--super3-color', colorMeta.value);
+            }
+
+            if (super3Circle) {
+                super3Circle.style.background = 'linear-gradient(90deg, ' + colorMeta.tint + ' 0%, rgba(33, 51, 68, 0.88) 65%, rgba(33, 51, 68, 1) 100%)';
+                super3Circle.style.setProperty('--super3-color-strong', colorMeta.strong);
+                super3Circle.style.setProperty('--super3-color-soft', colorMeta.soft);
+                super3Circle.style.setProperty('--super3-color-text', colorMeta.text);
+            }
+
+            if (super3Card) {
+                super3Card.style.setProperty('--super3-color-strong', colorMeta.strong);
+                super3Card.style.setProperty('--super3-color-soft', colorMeta.soft);
+                super3Card.style.setProperty('--super3-color-text', colorMeta.text);
+            }
+
+            OpapApp.applyCountdown('clockdiv4', nextDraw.drawTime);
+        }
+    });
+})();

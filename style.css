@@ -1,50 +1,248 @@
+:root {
+    --page-top: #02060f;
+    --page-mid: #0b2c55;
+    --page-bottom: #030913;
+    --card-bg:
+        linear-gradient(180deg, rgba(18, 34, 55, 0.98) 0%, rgba(13, 24, 40, 0.98) 100%);
+    --card-border: rgba(255, 216, 73, 0.92);
+    --panel-dark: rgba(8, 16, 27, 0.9);
+    --panel-mid: rgba(18, 35, 57, 0.96);
+    --panel-soft: rgba(255, 255, 255, 0.07);
+    --table-odd: rgba(15, 29, 46, 0.96);
+    --table-even: rgba(28, 59, 94, 0.96);
+    --table-head:
+        linear-gradient(180deg, rgba(77, 131, 186, 0.98) 0%, rgba(48, 93, 144, 0.98) 100%);
+    --text-main: #ffffff;
+    --text-soft: rgba(238, 246, 255, 0.9);
+    --accent-yellow: #ffec3d;
+    --ball-yellow: #ffea1c;
+    --ball-shadow: rgba(0, 0, 0, 0.35);
+}
+
 html,
 body {
+    min-height: 100%;
     margin: 0;
     padding: 0;
-    font-size: calc(1vw + 1vh + -1vmin);
-
-    /* ms ( IE 10.0+ ) */
-    background: -ms-linear-gradient(180deg, rgba(0, 0, 0, 1) 0.14%, rgba(8, 98, 232, 1) 49.35%, rgba(0, 0, 0, 1) 99.46%);
-
-    /* WebKit (Chrome 10.0+, safari 5.1+ )*/
-    background: -webkit-linear-gradient(180deg, rgba(0, 0, 0, 1) 0.14%, rgba(8, 98, 232, 1) 49.35%, rgba(0, 0, 0, 1) 99.46%);
-
-    /* Moz ( Moz 3.6+ )*/
-    background: -moz-linear-gradient(180deg, rgba(0, 0, 0, 1) 0.14%, rgba(8, 98, 232, 1) 49.35%, rgba(0, 0, 0, 1) 99.46%);
-
-    /* Opera ( opera 11.6+ )*/
-    background: -o-linear-gradient(180deg, rgba(0, 0, 0, 1) 0.14%, rgba(8, 98, 232, 1) 49.35%, rgba(0, 0, 0, 1) 99.46%);
-
-    /* W3C Markup */
-    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0.14%, rgba(8, 98, 232, 1) 49.35%, rgba(0, 0, 0, 1) 99.46%);
-    background-repeat: no-repeat;
+    font-size: calc(0.72vw + 0.72vh + 0.32vmin);
+    color: var(--text-main);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(45, 116, 226, 0.3) 0%, rgba(45, 116, 226, 0) 22%),
+        radial-gradient(circle at 50% 100%, rgba(15, 56, 104, 0.42) 0%, rgba(15, 56, 104, 0) 18%),
+        linear-gradient(180deg, var(--page-top) 0%, var(--page-mid) 47%, var(--page-bottom) 100%);
     background-attachment: fixed;
+    background-repeat: no-repeat;
     background-position: center;
 }
 
+body {
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    letter-spacing: 0.01em;
+}
+
+.main1,
+.main2 {
+    margin: 0;
+    padding: 0.4rem 0.5rem;
+}
+
 .card {
-    background: #274c72;
-    color: white;
-    border: 1px inset #ffe95c;
-    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(255, 254, 253, 0);
-    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(255, 254, 253, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    color: var(--text-main);
+    border: 1px solid var(--card-border);
+    border-radius: 0.95rem;
+    box-shadow:
+        0 20px 38px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -12px 24px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     text-align: center;
+}
+
+.card > div:first-child {
+    position: relative;
+    flex: 0 0 auto;
+    overflow: hidden;
+    background: rgba(8, 16, 30, 0.92);
+    min-height: 3rem;
+}
+
+.card > div:first-child img {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+    object-fit: fill;
+}
+
+.game-header {
+    width: 100%;
+    height: 15%;
+}
+
+.header-fill-img {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+}
+
+.main1 .col-md-4:first-child .card > div:first-child {
+    background:
+        radial-gradient(circle at 68% 18%, rgba(143, 231, 255, 0.3) 0%, rgba(143, 231, 255, 0) 18%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.045) 0 22%, transparent 22% 44%, rgba(255, 255, 255, 0.035) 44% 66%, transparent 66% 100%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0 16%, transparent 16% 50%, rgba(255, 255, 255, 0.025) 50% 66%, transparent 66% 100%),
+        linear-gradient(135deg, #36aff3 0%, #2d9ae5 40%, #256fcd 72%, #224fad 100%);
+}
+
+.main1 .col-md-4:first-child .card > div:first-child::after {
+    background:
+        radial-gradient(circle at 60% 12%, rgba(170, 239, 255, 0.24) 0%, rgba(170, 239, 255, 0) 18%),
+        linear-gradient(180deg, rgba(7, 18, 32, 0.01) 0%, rgba(7, 18, 32, 0.1) 100%);
+}
+
+.main1 .col-md-4:first-child .card > div:first-child img {
+    object-fit: contain;
+    object-position: left center;
+    width: auto;
+    max-width: 78%;
+    height: calc(100% - 0.16rem) !important;
+    padding: 0.1rem 0 0.02rem 0.34rem;
+    background: transparent;
+    filter: drop-shadow(0 6px 10px rgba(8, 28, 62, 0.18));
+}
+
+.main1 .col-md-4:nth-child(2) .card > div:first-child {
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 11%, transparent 11% 27%, rgba(255, 255, 255, 0.06) 27% 41%, transparent 41% 58%, rgba(255, 255, 255, 0.08) 58% 73%, transparent 73% 100%),
+        radial-gradient(circle at 76% 22%, rgba(255, 249, 196, 0.2) 0%, rgba(255, 249, 196, 0) 16%),
+        linear-gradient(135deg, #ffde2d 0%, #ffd719 36%, #f1c318 72%, #dfaf19 100%);
+}
+
+.main1 .col-md-4:nth-child(2) .card > div:first-child::after {
+    background:
+        linear-gradient(180deg, rgba(66, 52, 5, 0.01) 0%, rgba(66, 52, 5, 0.08) 100%);
+}
+
+.main1 .col-md-4:nth-child(2) .card > div:first-child img {
+    object-fit: contain;
+    object-position: left center;
+    width: auto;
+    max-width: 63%;
+    height: calc(100% - 0.18rem) !important;
+    padding: 0.08rem 0 0.04rem 0.3rem;
+    background: transparent;
+    filter: drop-shadow(0 5px 8px rgba(89, 66, 0, 0.14));
+}
+
+.main2 .col-md-4:nth-child(2) .card > div:first-child img {
+    object-fit: contain;
+    object-position: left center;
+    width: auto;
+    max-width: 62%;
+    height: calc(100% - 0.14rem) !important;
+    padding: 0.06rem 0 0.03rem 0.24rem;
+    background: transparent;
+}
+
+.main2 .col-md-4:nth-child(2) .card > div:first-child {
+    background:
+        radial-gradient(circle at 72% 18%, rgba(158, 219, 255, 0.22) 0%, rgba(158, 219, 255, 0) 16%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 18%, transparent 18% 52%, rgba(255, 255, 255, 0.03) 52% 68%, transparent 68% 100%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0 18%, transparent 18% 50%, rgba(255, 255, 255, 0.02) 50% 70%, transparent 70% 100%),
+        linear-gradient(180deg, #2b68d6 0%, #2256c0 52%, #173f91 100%);
+}
+
+.main2 .col-md-4:nth-child(2) .card > div:first-child::after {
+    background:
+        linear-gradient(180deg, rgba(8, 18, 34, 0.04) 0%, rgba(8, 18, 34, 0.12) 100%);
+}
+
+.main1 .col-md-4:nth-child(3) .card > div:first-child img {
+    object-fit: contain;
+    object-position: left center;
+    width: auto;
+    max-width: 68%;
+    height: calc(100% - 0.08rem) !important;
+    padding: 0.04rem 0 0.02rem 0.2rem;
+    background: transparent;
+}
+
+.main1 .col-md-4:nth-child(3) .card > div:first-child {
+    background:
+        radial-gradient(circle at 22% 18%, rgba(163, 207, 255, 0.16) 0%, rgba(163, 207, 255, 0) 18%),
+        radial-gradient(circle at 78% 22%, rgba(255, 120, 120, 0.18) 0%, rgba(255, 120, 120, 0) 18%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 16%, transparent 16% 48%, rgba(255, 255, 255, 0.03) 48% 66%, transparent 66% 100%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0 18%, transparent 18% 50%, rgba(255, 255, 255, 0.02) 50% 72%, transparent 72% 100%),
+        linear-gradient(90deg, #2b5da7 0%, #335f9d 46%, #c64662 64%, #ef4444 100%);
+}
+
+.main1 .col-md-4:nth-child(3) .card > div:first-child::after {
+    background:
+        linear-gradient(180deg, rgba(8, 18, 34, 0.04) 0%, rgba(8, 18, 34, 0.12) 100%);
+}
+
+.main2 .col-md-4:nth-child(3) .card > div:first-child img {
+    object-fit: contain;
+    object-position: left center;
+    width: auto;
+    max-width: 84%;
+    height: calc(100% - 0.04rem) !important;
+    padding: 0.03rem 0 0.01rem 0.24rem;
+    background: transparent;
+    filter: saturate(1.08) brightness(1.04) drop-shadow(0 4px 10px rgba(7, 32, 55, 0.2));
+}
+
+.main2 .col-md-4:nth-child(3) .card > div:first-child {
+    background:
+        radial-gradient(circle at 8% 18%, rgba(255, 255, 255, 0.16) 0 2%, transparent 2.2%),
+        radial-gradient(circle at 72% 14%, rgba(201, 247, 255, 0.2) 0 8%, transparent 8.3%),
+        radial-gradient(circle at 86% 26%, rgba(183, 241, 255, 0.14) 0 12%, transparent 12.3%),
+        radial-gradient(circle at 92% 78%, rgba(176, 234, 255, 0.12) 0 16%, transparent 16.3%),
+        radial-gradient(circle at 70% 72%, rgba(156, 224, 255, 0.1) 0 20%, transparent 20.3%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0 14%, transparent 14% 42%, rgba(255, 255, 255, 0.035) 42% 62%, transparent 62% 100%),
+        linear-gradient(180deg, #29d5ff 0%, #17bff0 40%, #149fdf 70%, #1183c4 100%);
+}
+
+#he,
+.main2 .col-md-4:nth-child(2) .card > div:first-child,
+.main2 .col-md-4:nth-child(3) .card > div:first-child {
+    height: 3.18rem;
+    min-height: 3.18rem;
+}
+
+.card > div:first-child::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(8, 22, 34, 0.04) 0%, rgba(8, 22, 34, 0.22) 100%);
+    pointer-events: none;
 }
 
 #jakpot,
 #jakpotlotto,
 #jakpotproto {
-    position: relative;
-    margin-top: -5.5%;
-    float: right;
-    width: 50%;
-    font-size: 1.4em;
-    font-weight: bold;
-    z-index: 9999;
-    color: white;
-    vertical-align: middle;
+    position: absolute;
+    right: 0.45rem;
+    bottom: 0.16rem;
+    max-width: 48%;
+    width: auto;
+    margin-top: 0;
+    float: none;
+    font-size: 0.88em;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-align: right;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    z-index: 3;
+    color: var(--accent-yellow);
+}
+
+#jakpotlotto {
+    color: #0b2d62 !important;
+    text-shadow: 0 1px 6px rgba(255, 255, 255, 0.28);
 }
 
 #clockdiv,
@@ -52,17 +250,27 @@ body {
 #clockdiv3,
 #clockdiv4,
 #clockdiv5 {
-    position: relative;
-    margin-top: -12%;
-    float: right;
-    width: 50%;
-    font-family: sans-serif;
+    position: absolute;
+    top: 0.18rem;
+    right: 0.28rem;
+    width: min(45%, 12.8rem);
+    margin-top: 0;
+    float: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 0.08rem 0.18rem 0.06rem;
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
     color: #fff;
-    display: block;
+    font-weight: 800;
     text-align: center;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
+    background:
+        linear-gradient(180deg, rgba(32, 57, 89, 0.86) 0%, rgba(13, 25, 40, 0.9) 100%);
+    border-radius: 0.42rem;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    z-index: 3;
 }
 
 #clockdiv > div,
@@ -71,61 +279,370 @@ body {
 #clockdiv4 > div,
 #clockdiv5 > div {
     width: 23%;
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.06rem;
+}
+
+#clockdiv > div > span,
+#clockdiv2 > div > span,
+#clockdiv3 > div > span,
+#clockdiv4 > div > span,
+#clockdiv5 > div > span {
+    font-size: 0.88em;
+    line-height: 1;
 }
 
 #clockdiv4,
 #clockdiv5 {
-    margin-top: -9.6%;
+    top: 0.14rem;
 }
 
 .smalltext {
-    margin-top: -4px;
-    font-size: 0.5em;
-    color: yellow;
+    margin-top: 0;
+    font-size: 0.25em;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--accent-yellow);
+    text-transform: uppercase;
+    line-height: 1.05;
+}
+
+.kltime {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.22rem 0.46rem;
+    background:
+        linear-gradient(180deg, rgba(70, 116, 168, 0.98) 0%, rgba(50, 87, 130, 0.98) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+    font-size: 0.76em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+#kino .kltime,
+#super3-card .kltime,
+.main2 .col-md-4:nth-child(3) .kltime {
+    height: 1.86rem;
+    min-height: 1.86rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+
+.r,
+.l {
+    float: none;
+    margin: 0;
+    min-width: 8.6ch;
 }
 
 .r {
-    float: right;
-    margin-right: 5px;
+    text-align: left;
 }
 
 .l {
-    float: left;
-    margin-left: 5px;
+    text-align: right;
 }
 
-tr:nth-child(even) {
-    background-color: #213344;
-
-}
-
-td {
-    font-weight: bold;
-
-}
-
-span.fa-circle {
-    color: #faee05;
+#ns {
+    flex: 1;
 }
 
 .circle {
-    color: black;
-    font-size: 1.4em;
-    font-weight: bolder;
-    background-color: #213344;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    gap: 0.16rem;
+    min-height: 2rem;
+    padding: 4px 0.36rem;
+    color: #000;
+    font-size: 1em;
+    font-weight: 900;
+    background:
+        linear-gradient(180deg, rgba(14, 30, 48, 0.18) 0%, rgba(7, 18, 30, 0.34) 100%),
+        linear-gradient(180deg, rgba(25, 52, 82, 0.96) 0%, rgba(15, 33, 53, 0.96) 100%);
+}
+
+.main1 .col-md-4:first-child .circle,
+.main1 .col-md-4:nth-child(2) .circle,
+.main1 .col-md-4:nth-child(3) .circle {
+    height: 2.58rem !important;
+    min-height: 2.58rem !important;
+    flex-wrap: nowrap;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    align-content: center;
+}
+
+.main1 .col-md-4:first-child .circle .fa-stack,
+.main1 .col-md-4:nth-child(2) .circle .fa-stack,
+.main1 .col-md-4:nth-child(3) .circle .fa-stack {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.main1 .col-md-4:first-child .circle .fa-plus,
+.main1 .col-md-4:nth-child(2) .circle .fa-plus,
+.main1 .col-md-4:nth-child(3) .circle .fa-plus {
+    align-self: center;
+    flex: 0 0 auto;
+}
+
+span.fa-circle {
+    color: var(--ball-yellow);
+    text-shadow: 0 6px 12px rgba(0, 0, 0, 0.22);
+    transform: scale(1.14);
+}
+
+.fa-stack {
+    width: 1.88em;
+    height: 1.88em;
+    line-height: 1.88em;
 }
 
 .fa-stack-1x {
-    font-size: 1.1em;
+    font-size: 1.06em;
+    font-weight: 900;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.24), 0 1px 8px rgba(0, 0, 0, 0.16);
 }
 
+.fa-plus {
+    margin: 0 0.08rem;
+    font-size: 0.92em !important;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+.bonus-separator {
+    color: #ffffff;
+}
+
+.bonus-stack {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bonus-ball {
+    color: #ff1b1b;
+}
+
+.bonus-number {
+    color: #ffffff;
+}
+
+.bonus-stack .fa-circle {
+    color: #ff1b1b !important;
+}
+
+.bonus-stack .fa-stack-1x {
+    color: #ffffff !important;
+}
+
+.joker-table {
+    font-size: 0.8em;
+}
+
+.top-game-table {
+    width: 100%;
+    height: 66%;
+    font-size: 1em;
+}
+
+.main1 .top-game-table tr:first-child th {
+    height: 1.58rem;
+    vertical-align: middle;
+    line-height: 1.08;
+}
+
+.card table {
+    width: 100% !important;
+    border-collapse: collapse;
+    margin-top: auto;
+    color: var(--text-main);
+}
+
+.main1 .card table {
+    font-size: 0.96em;
+}
+
+.main2 .card table {
+    font-size: 0.92em;
+}
+
+.card th,
+.card td {
+    padding: 0.16rem 0.18rem;
+    border: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.card th {
+    background: var(--table-head);
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    font-size: 0.74em;
+    text-transform: uppercase;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.card td {
+    font-weight: 700;
+    color: var(--text-soft);
+    font-size: 0.71em;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.card table tr:nth-child(even) td {
+    background: var(--table-even);
+}
+
+.card table tr:nth-child(odd) td {
+    background: var(--table-odd);
+}
+
+.card table tr:first-child th,
+.card table .super3-color-row-title th {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.super3-circle {
+    --super3-color: #ffffff;
+    --super3-color-strong: rgba(102, 24, 24, 0.45);
+    --super3-color-soft: rgba(102, 24, 24, 0.18);
+    --super3-color-text: #fff8dc;
+    background: linear-gradient(90deg, rgba(33, 51, 68, 0.78) 0%, rgba(33, 51, 68, 0.92) 100%);
+    transition: background 180ms ease;
+}
+
+.super3-balls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+}
+
+.super3-color-chip {
+    position: absolute;
+    left: calc(50% + 4.8rem);
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    padding: 0.16rem 0.42rem;
+    border-radius: 999px;
+    font-size: 0.62em;
+    line-height: 1;
+    font-weight: 800;
+    color: white;
+    background:
+        linear-gradient(180deg, rgba(33, 58, 90, 0.92) 0%, rgba(12, 24, 39, 0.94) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    white-space: nowrap;
+}
+
+.super3-color-chip::before {
+    content: "";
+    display: inline-block;
+    width: 0.72rem;
+    height: 0.72rem;
+    margin-right: 0.3rem;
+    border-radius: 999px;
+    vertical-align: middle;
+    background: var(--super3-color, #ffffff);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+#super3-card .super3-color-row-title th {
+    background:
+        linear-gradient(180deg,
+            color-mix(in srgb, var(--super3-color-strong, rgba(102, 24, 24, 0.45)) 82%, white 18%) 0%,
+            var(--super3-color-strong, rgba(102, 24, 24, 0.45)) 100%);
+    color: var(--super3-color-text, #fff8dc);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+}
+
+#super3-card .super3-color-row td {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+#super3-card .super3-color-row:nth-child(even) td {
+    background:
+        linear-gradient(180deg,
+            color-mix(in srgb, var(--super3-color-soft, rgba(102, 24, 24, 0.18)) 88%, rgba(255, 255, 255, 0.03) 12%) 0%,
+            var(--super3-color-soft, rgba(102, 24, 24, 0.18)) 100%) !important;
+}
+
+#super3-card .super3-color-row:nth-child(odd) td {
+    background:
+        linear-gradient(180deg,
+            color-mix(in srgb, var(--super3-color-soft, rgba(102, 24, 24, 0.18)) 70%, rgba(8, 18, 30, 0.42) 30%) 0%,
+            color-mix(in srgb, var(--super3-color-soft, rgba(102, 24, 24, 0.18)) 78%, rgba(8, 18, 30, 0.28) 22%) 100%) !important;
+}
+
+#super3-card .circle {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 -10px 18px rgba(0, 0, 0, 0.12);
+}
+
+.main2 .col-md-4:nth-child(2) .circle,
+.main2 .col-md-4:nth-child(3) .circle {
+    height: 2.46rem;
+    min-height: 2.46rem;
+    align-content: center;
+}
+
+#super3-card table tr:first-child th,
+#super3-card table tr:nth-child(5) th,
+.main2 .col-md-4:nth-child(3) table tr:first-child th {
+    height: 1.64rem;
+    vertical-align: middle;
+    line-height: 1.08;
+}
+
+#super3-card > table {
+    height: 71% !important;
+    font-size: 0.86em;
+}
+
+#super3-card table th,
+#super3-card table td {
+    padding-top: 0.03rem;
+    padding-bottom: 0.03rem;
+    line-height: 1;
+}
+
+#super3-card .super3-color-chip {
+    font-size: 0.64em;
+    padding: 0.14rem 0.42rem;
+}
 
 .ml4 {
     font-weight: 1000;
     font-size: 1.5em;
-    color: #faee05;
-    font-family: 'Permanent Marker', cursive;
+    color: var(--accent-yellow);
+    font-family: "Permanent Marker", cursive;
 }
 
 .red {
@@ -137,54 +654,346 @@ span.fa-circle {
 }
 
 #he {
-  background-image: url('img/kino-logo.png'); /* Replace 'your-image-url.jpg' with the actual URL of your image */
-  background-size:  14%;
-  background-position: center; /* This centers the image horizontally and vertically */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  display: flex;
-  flex-wrap: wrap;
-  }
-
-  #he> span{
-    padding: 7px;
-    color: #ffffff;
-  }
-
-  #first  tr {
-    background-color: #213344;
-    font-size: 1.25em;
-}
-/* Responsive adjustments for tablets and phones */
-@media (max-width: 768px) {
-  body {
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  .game-container {
-    flex-direction: column;
+    background:
+        url('img/kino-logo.svg') center / 14% no-repeat,
+        linear-gradient(180deg, rgba(255, 245, 178, 0.15) 0%, rgba(255, 245, 178, 0) 100%),
+        linear-gradient(135deg, #f3aa18 0%, #efa316 38%, #e69011 70%, #db860e 100%);
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    width: 100%;
-  }
+    justify-content: center !important;
+    position: relative;
+    padding: 0.75rem 0.95rem;
+    font-size: 0.92em;
+    font-weight: 800;
+}
 
-  button {
-    width: 100%;
-    margin-bottom: 10px;
-  }
+#he > span {
+    padding: 0.16rem 0.5rem;
+    color: #ffffff;
+    background: linear-gradient(180deg, rgba(29, 55, 87, 0.92) 0%, rgba(14, 28, 45, 0.94) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    line-height: 1;
+}
 
-  input[type="number"],
-  input[type="text"] {
-    width: 100%;
-  }
+#klk {
+    position: absolute;
+    left: 0.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+#or {
+    position: absolute;
+    right: 0.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+#first tr {
+    background-color: #15273c;
+    font-size: 1.1em;
+}
+
+#kino table {
+    width: calc(100% - 0.92rem);
+    margin-top: 0.12rem;
+    margin-bottom: 0.14rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    height: calc(100% - 3.78rem);
+}
+
+#kino td {
+    font-weight: 800;
+}
+
+#first td {
+    background:
+        linear-gradient(180deg, rgba(22, 39, 60, 0.98) 0%, rgba(16, 29, 45, 0.98) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    background-clip: padding-box;
+}
+
+.main1 .col-md-4:first-child .card th,
+.main1 .col-md-4:first-child .card td {
+    padding-top: 0.11rem;
+    padding-bottom: 0.11rem;
+}
+
+.main1 .col-md-4:nth-child(3) .card th,
+.main1 .col-md-4:nth-child(3) .card td {
+    padding-left: 0.12rem;
+    padding-right: 0.12rem;
+}
+
+.main1 .col-md-4:nth-child(3) .card th:first-child,
+.main1 .col-md-4:nth-child(3) .card td:first-child {
+    width: 12%;
+}
+
+.main1 .col-md-4:nth-child(3) .card th:nth-child(2),
+.main1 .col-md-4:nth-child(3) .card td:nth-child(2) {
+    width: 38%;
+}
+
+.main1 .col-md-4:nth-child(3) .card th:nth-child(3),
+.main1 .col-md-4:nth-child(3) .card td:nth-child(3) {
+    width: 22%;
+}
+
+.main1 .col-md-4:nth-child(3) .card th:nth-child(4),
+.main1 .col-md-4:nth-child(3) .card td:nth-child(4) {
+    width: 28%;
+}
+
+.main1 .col-md-4:nth-child(3) .card th {
+    font-size: 0.69em;
+}
+
+.main2 .col-md-4:nth-child(2) .card .kltime {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+
+.main2 .col-md-4:nth-child(2) .card .circle {
+    padding-top: 0.12rem;
+    padding-bottom: 0.1rem;
+}
+
+.main2 .col-md-4:nth-child(2) .card table th,
+.main2 .col-md-4:nth-child(2) .card table td {
+    padding-top: 0.08rem;
+    padding-bottom: 0.08rem;
+}
+
+@media (max-height: 780px) {
+    .main1 .col-md-4:first-child .card .kltime,
+    .main2 .col-md-4:nth-child(2) .card .kltime {
+        padding-top: 0.14rem;
+        padding-bottom: 0.14rem;
+        font-size: 0.72em;
+    }
+
+    .main1 .col-md-4:first-child .card .circle,
+    .main2 .col-md-4:nth-child(2) .card .circle {
+        padding-top: 0.18rem;
+        padding-bottom: 0.16rem;
+        font-size: 0.84em;
+    }
+
+    .main1 .col-md-4:first-child .card th,
+    .main1 .col-md-4:first-child .card td,
+    .main2 .col-md-4:nth-child(2) .card th,
+    .main2 .col-md-4:nth-child(2) .card td {
+        padding-top: 0.09rem;
+        padding-bottom: 0.09rem;
+        font-size: 0.68em;
+    }
+}
+
+@media (max-height: 730px) {
+    .main1 .col-md-4:first-child .card .kltime,
+    .main2 .col-md-4:nth-child(2) .card .kltime {
+        padding-top: 0.11rem;
+        padding-bottom: 0.11rem;
+        font-size: 0.66em;
+    }
+
+    .main1 .col-md-4:first-child .card .circle,
+    .main2 .col-md-4:nth-child(2) .card .circle {
+        padding-top: 0.14rem;
+        padding-bottom: 0.12rem;
+        font-size: 0.8em;
+    }
+
+    .main1 .col-md-4:first-child .card th,
+    .main1 .col-md-4:first-child .card td,
+    .main2 .col-md-4:nth-child(2) .card th,
+    .main2 .col-md-4:nth-child(2) .card td {
+        padding-top: 0.07rem;
+        padding-bottom: 0.07rem;
+        font-size: 0.64em;
+    }
+
+    .main2 .col-md-4:nth-child(2) .card table {
+        font-size: 0.88em;
+    }
+
+    #kino table {
+        width: calc(100% - 0.64rem);
+        margin-top: 0.12rem;
+    }
+}
+
+
+@media (max-width: 991px) {
+    html,
+    body {
+        font-size: 16px;
+    }
+
+    .main1,
+    .main2 {
+        padding: 0.35rem;
+    }
+
+    #clockdiv,
+    #clockdiv2,
+    #clockdiv3,
+    #clockdiv4,
+    #clockdiv5 {
+        width: min(56%, 17rem);
+        padding: 0.42rem 0.58rem 0.38rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+        padding: 0.2rem;
+    }
+
+    .card {
+        height: auto !important;
+    }
+
+    .card > div:first-child {
+        min-height: 2.75rem;
+    }
+
+    .card > div:first-child img {
+        height: 100% !important;
+    }
+
+    #clockdiv,
+    #clockdiv2,
+    #clockdiv3,
+    #clockdiv4,
+    #clockdiv5 {
+        top: 0.14rem;
+        right: 0.18rem;
+        width: min(44%, 10.2rem);
+        padding: 0.06rem 0.12rem 0.05rem;
+    }
+
+    #jakpot,
+    #jakpotlotto,
+    #jakpotproto {
+        right: 0.22rem;
+        bottom: 0.08rem;
+        max-width: 50%;
+        font-size: 0.8em;
+    }
+
+    .kltime {
+        padding: 0.16rem 0.3rem;
+        font-size: 0.66em;
+    }
+
+    .circle {
+        padding: 0.18rem;
+        font-size: 0.8em;
+    }
+
+    .fa-stack {
+        width: 1.64em;
+        height: 1.64em;
+        line-height: 1.64em;
+    }
+
+    .fa-stack-1x {
+        font-size: 0.96em;
+    }
+
+    .card th,
+    .card td {
+        padding: 0.12rem 0.1rem;
+        font-size: 0.62em;
+    }
+
+    .super3-color-chip {
+        left: calc(50% + 4.1rem);
+        font-size: 0.58em;
+    }
+
+    #he {
+        background-size: 24%;
+        padding-top: 0.52rem;
+        padding-bottom: 0.52rem;
+    }
 }
 
 @media (max-width: 480px) {
-  h1, h2, h3 {
-    font-size: 1.2rem;
-    text-align: center;
-  }
+    html,
+    body {
+        font-size: 14px;
+    }
 
-  .game-result {
-    font-size: 1rem;
-  }
+    .main1,
+    .main2 {
+        padding: 0.18rem;
+    }
+
+    .card {
+        border-radius: 0.8rem;
+    }
+
+    .card > div:first-child {
+        min-height: 2.8rem;
+    }
+
+    .card > div:first-child img {
+        height: 100% !important;
+    }
+
+    #clockdiv,
+    #clockdiv2,
+    #clockdiv3,
+    #clockdiv4,
+    #clockdiv5 {
+        width: min(45%, 9.8rem);
+        padding: 0.05rem 0.1rem 0.04rem;
+        border-radius: 0.32rem;
+    }
+
+    .smalltext {
+        font-size: 0.21em;
+    }
+
+    .r,
+    .l {
+        min-width: 7.2ch;
+    }
+
+    .circle {
+        font-size: 0.8em;
+        gap: 0.08rem;
+    }
+
+    .fa-stack {
+        width: 1.54em;
+        height: 1.54em;
+        line-height: 1.54em;
+    }
+
+    .fa-stack-1x {
+        font-size: 0.9em;
+    }
+
+    .super3-color-chip {
+        left: calc(50% + 3.6rem);
+        padding: 0.14rem 0.34rem;
+    }
+
+    #he {
+        background-size: 32%;
+        padding: 0.42rem 0.55rem;
+    }
 }

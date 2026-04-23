@@ -1,100 +1,50 @@
-setInterval(function () {
+(function () {
     'use strict';
-    fetch('https://api.opap.gr/draws/v3.0/5103/last/2')
-        .then(
-            function (response) {
-                'use strict';
-                if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' + response.status);
-                    return;
-                }
 
-                response.json().then(function (data) {
+    OpapApp.startPolling({
+        key: 'lotto',
+        gameId: 5103,
+        intervalMs: 15000,
+        fetchCount: 2,
+        onData: function (data) {
+            var currentDraw = data[1];
+            var nextDraw = data[0];
+            var prizeCategories = currentDraw.prizeCategories;
+            var firstCategory = prizeCategories[0];
+            var jackpotNode = document.getElementById('jakpotlotto');
 
-                    var date = data[1].drawTime;
-                    document.getElementById('timeLotto').innerHTML = new Date(date).toLocaleDateString('gr-GR');
-                    document.getElementById('klLotto').innerHTML = 'ΚΛΗΡΩΣΗ:' + data[1].drawId;
-                    var arl = data[1].winningNumbers.list;
-                    arl.sort(function (a, b) {
-                        return a - b
-                    });
+            OpapApp.updateDrawMeta('timeLotto', 'klLotto', currentDraw);
+            OpapApp.renderNumberList(
+                ['lotto1', 'lotto2', 'lotto3', 'lotto4', 'lotto5', 'lotto6'],
+                currentDraw.winningNumbers.list
+            );
 
-                    document.getElementById('lotto1').innerHTML = data[1].winningNumbers.list["0"];
-                    document.getElementById('lotto2').innerHTML = data[1].winningNumbers.list["1"];
-                    document.getElementById('lotto3').innerHTML = data[1].winningNumbers.list["2"];
-                    document.getElementById('lotto4').innerHTML = data[1].winningNumbers.list["3"];
-                    document.getElementById('lotto5').innerHTML = data[1].winningNumbers.list["4"];
-                    document.getElementById('lotto6').innerHTML = data[1].winningNumbers.list["5"];             
+            OpapApp.setText('d6', OpapApp.formatAmount(OpapApp.toNumber(firstCategory.jackpot) + OpapApp.toNumber(firstCategory.distributed)));
+            OpapApp.setText('e6', firstCategory.winners);
+            OpapApp.setText('f6', firstCategory.winners === 0 ? 'ΤΖΑΚΠΟΤ' : OpapApp.formatAmount(firstCategory.divident || firstCategory.fixed));
 
-                    var jak = document.getElementById('jakpotlotto').innerHTML = parseInt(data[0].prizeCategories[0].jackpot + data[1].prizeCategories["0"].distributed);
-                    document.getElementById('d6').innerHTML = parseInt(data[1].prizeCategories[0].jackpot + data[1].prizeCategories[0].distributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('e6').innerHTML = data[1].prizeCategories[0].winners;
-
-                    var c = data[1].prizeCategories["0"].winners;
-                    if (c == 0) {
-                        document.getElementById('f6').innerHTML = "ΤΖΑΚΠΟΤ";
-                    } else {
-                        document.getElementById('f6').innerHTML = (data[1].prizeCategories["0"].divident).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    }
-
-                    var jakpot = document.getElementById('jakpotlotto');
-                    if (jak == 0) {
-                        jakpot.style.opacity = 0;
-                    }
-
-                    document.getElementById('jakpotlotto').innerHTML = '<span style="color: black;">ΤΖΑΚΠΟΤ: </span>' + (data[0].prizeCategories[0].minimumDistributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-                    document.getElementById('e51').innerHTML = data[1].prizeCategories[1].winners;
-                    document.getElementById('f51').innerHTML = (data[1].prizeCategories[1].fixed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-
-                    document.getElementById('e5').innerHTML = data[1].prizeCategories[2].winners;
-                    document.getElementById('f5').innerHTML = (data[1].prizeCategories[2].fixed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-
-                    document.getElementById('e4').innerHTML = (data[1].prizeCategories[3].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('f4').innerHTML = data[1].prizeCategories[3].fixed;
-
-
-                    document.getElementById('e3').innerHTML = (data[1].prizeCategories[4].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('f3').innerHTML = data[1].prizeCategories[4].fixed;
-
-                    // Set the date we're counting down to
-                    var countDownDate = new Date(data[0].drawTime).getTime();
-
-                    // Update the count down every 1 second
-                    var x = setInterval(function () {
-
-                        // Get today's date and time
-                        var now = new Date().getTime();
-
-                        // Find the distance between now and the count down date
-                        var distance = countDownDate - now;
-
-                        // Time calculations for days, hours, minutes and seconds
-                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                        // Output the result in an element with id="t"
-                        document.querySelector('#clockdiv2 > div:nth-child(1) > span').innerHTML = ('0' + days).slice(-2);
-                        document.querySelector('#clockdiv2 > div:nth-child(2) > span').innerHTML = ('0' + hours).slice(-2);
-                        document.querySelector('#clockdiv2 > div:nth-child(3) > span').innerHTML = ('0' + minutes).slice(-2);
-                        document.querySelector('#clockdiv2 > div:nth-child(4) > span').innerHTML = ('0' + seconds).slice(-2);
-
-                        // If the count down is over, write some text 
-                        if (distance < 0) {
-                            clearInterval(x);
-
-                        }
-                    }, 1000);
-                    
-                });
+            OpapApp.setJackpot('jakpotlotto', 'black', nextDraw.prizeCategories[0].minimumDistributed);
+            if (jackpotNode) {
+                jackpotNode.style.opacity = OpapApp.toNumber(nextDraw.prizeCategories[0].jackpot) === 0 ? '0' : '1';
             }
-        )
-        .catch(function (err) {
-            'use strict';
-            console.log('Fetch Error :-S', err);
-        });
-}, 9e3);
+
+            OpapApp.setText('d51', OpapApp.formatAmount(prizeCategories[1].distributed));
+            OpapApp.setText('e51', prizeCategories[1].winners);
+            OpapApp.setText('f51', OpapApp.formatAmount(prizeCategories[1].fixed));
+
+            OpapApp.setText('d5', OpapApp.formatAmount(prizeCategories[2].distributed));
+            OpapApp.setText('e5', prizeCategories[2].winners);
+            OpapApp.setText('f5', OpapApp.formatAmount(prizeCategories[2].fixed));
+
+            OpapApp.setText('d4', OpapApp.formatAmount(prizeCategories[3].distributed));
+            OpapApp.setText('e4', OpapApp.formatInteger(prizeCategories[3].winners));
+            OpapApp.setText('f4', OpapApp.formatAmount(prizeCategories[3].fixed));
+
+            OpapApp.setText('d3', OpapApp.formatAmount(prizeCategories[4].distributed));
+            OpapApp.setText('e3', OpapApp.formatInteger(prizeCategories[4].winners));
+            OpapApp.setText('f3', OpapApp.formatAmount(prizeCategories[4].fixed));
+
+            OpapApp.applyCountdown('clockdiv2', nextDraw.drawTime);
+        }
+    });
+})();

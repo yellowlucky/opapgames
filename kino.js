@@ -1,119 +1,56 @@
+(function () {
+    'use strict';
 
+    var table = document.createElement('table');
+    var tableBody = document.createElement('tbody');
 
-const tbl = document.createElement("table");
+    for (var rowIndex = 0; rowIndex < 8; rowIndex += 1) {
+        var row = document.createElement('tr');
 
-const tblBody = document.createElement("tbody");
+        for (var columnIndex = 1; columnIndex <= 10; columnIndex += 1) {
+            var cell = document.createElement('td');
+            var value = rowIndex === 0 ? columnIndex : (rowIndex * 10) + columnIndex;
+            cell.appendChild(document.createTextNode(String(value)));
+            row.appendChild(cell);
+        }
 
-const row1 = document.createElement("tr");
-for (let i = 1; i < 11; i++) {
-    const cel = document.createElement("td");
-    const cellTex = document.createTextNode(`${i}`);
-    cel.appendChild(cellTex)
-    row1.appendChild(cel);
-}
-
-tblBody.appendChild(row1);
-let cellText
-
-for (let i = 1; i < 8; i++) {
-
-    const row = document.createElement("tr");
-
-    for (let j = 1; j < 11; j++) {
-
-        const cell = document.createElement("td");
-
-        cellText = j > 9 ? document.createTextNode(i * j + 10) : document.createTextNode(`${i}${j}`);
-
-        cell.appendChild(cellText);
-        row.appendChild(cell);
-
+        tableBody.appendChild(row);
     }
-    tblBody.appendChild(row);
-}
-tbl.appendChild(tblBody);
-document.querySelector('#kino').appendChild(tbl);
-tbl.setAttribute("id", "first");
-tbl.style.width = '100%'
-tbl.style.fontSize = '0.9em'
-tbl.style.color = "white"
 
+    table.appendChild(tableBody);
+    table.setAttribute('id', 'first');
+    table.style.width = '100%';
+    table.style.fontSize = '0.9em';
+    table.style.color = 'white';
+    document.querySelector('#kino').appendChild(table);
 
-setInterval(function () {
-fetch('https://api.opap.gr/draws/v3.0/1100/last/10')
-    .then(
-        function (response) {
-            if (response.status !== 200) {
-                console.log('Looks like there was a problem. Status Code: ' +
-                    response.status);
-                return;
-            }
-            response.json().then(function (data) {
+    OpapApp.startPolling({
+        key: 'kino',
+        gameId: 1100,
+        intervalMs: 15000,
+        fetchCount: 2,
+        onData: function (data) {
+            var currentDraw = data[1];
+            var cells = document.querySelectorAll('#first td');
 
-                "use strict"
+            OpapApp.setText('klk', '\u039A\u03BB\u03AE\u03C1\u03C9\u03C3\u03B7 ' + currentDraw.drawId);
+            OpapApp.setText('or', '\u038F\u03C1\u03B1 ' + OpapApp.formatClock(currentDraw.drawTime));
 
-                let td = document.querySelectorAll("#first td");
+            cells.forEach(function (node) {
+                node.style.background = '';
+                node.style.color = '';
+                node.style.border = '1px solid black';
 
-                let winArray = data[1].winningNumbers.list
-
-                function generateRandomNumbers(count, max) {
-                    const numbers = [];
-                    for (let i = 1; i <= max; i++) {
-                        numbers.push(i);
-                    }
-                    for (let i = max - 1; i >= max - count; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
-                    }
-                    return numbers.slice(max - count, max);
+                if (currentDraw.winningNumbers.list.includes(Number(node.textContent))) {
+                    node.style.background = '#ffdd50';
+                    node.style.color = 'black';
                 }
 
-                console.log(data[1])
-                let klirosi = document.querySelector('#klk')
-                klirosi.innerHTML = 'ΚΛΗΡΩΣΗ:' + data[1].drawId
-                klirosi.style.Align = 'left'
-                let ora = document.querySelector('#or')
-                // Υποθέτουμε ότι έχουμε λάβει δεδομένα από το API και αποθηκεύουμε την ώρα σε μια μεταβλητή (π.χ. response)
-                const response = {
-                    time: data[1].drawTime
-                };
-
-                // Δημιουργούμε ένα αντικείμενο Date από την ώρα που λάβαμε από το API
-                const apiTime = new Date(response.time);
-
-                // Παίρνουμε τις ώρες, τα λεπτά και τα δευτερόλεπτα από το αντικείμενο Date
-                const hours = apiTime.getHours();
-                const minutes = apiTime.getMinutes();
-                const seconds = apiTime.getSeconds();
-
-                // Εμφανίζουμε τη σωστή ώρα στο κατάλληλο format (π.χ., 15:30:00)
-                const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                ora.innerHTML = 'ΩΡΑ:' + formattedTime
-                td.forEach(
-                    (node) => {
-                        node.style.background = '';
-                            node.style.color = '';
-                            
-                        node.style.border = '1px solid black';
-                        if (data[1].winningNumbers.list.includes(Number(node.innerHTML))) {
-                            node.style.background = '#ffdd50';
-                            node.style.color = 'black';
-                            
-                        }
-                        if (data[1].winningNumbers.bonus.includes(Number(node.innerHTML))) { 
-                            node.style.background = 'red';
-                            node.style.color = 'white';
-                       
-                        }
-                    }
-                );
-
+                if (currentDraw.winningNumbers.bonus.includes(Number(node.textContent))) {
+                    node.style.background = 'red';
+                    node.style.color = 'white';
+                }
             });
-            
         }
-    )
-    .catch(function (err) {
-        console.log('Fetch Error :-S', err);
     });
-}, 2e3);
-
+})();

@@ -1,191 +1,143 @@
-setInterval(function () {
+(function () {
     'use strict';
-    fetch('https://api.opap.gr/draws/v3.0/5104/last/2')
-        .then(
-            function (response) {
 
-                if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' + response.status);
-                    return;
-                }
+    OpapApp.startPolling({
+        key: 'joker',
+        gameId: 5104,
+        intervalMs: 15000,
+        fetchCount: 2,
+        onData: function (data) {
+            var currentDraw = data[1];
+            var nextDraw = data[0];
+            var prizeCategories = currentDraw.prizeCategories;
+            var jackpotNode = document.getElementById('jakpot');
+            var firstCategory = prizeCategories[0];
 
-                response.json().then(function (data) {
+            OpapApp.updateDrawMeta('time', 'kl', currentDraw);
+            OpapApp.renderNumberList(
+                ['joker1', 'joker2', 'joker3', 'joker4', 'joker5'],
+                currentDraw.winningNumbers.list
+            );
+            OpapApp.setText('joker6', currentDraw.winningNumbers.bonus[0]);
 
-                    var date = data[1].drawTime;
+            OpapApp.setText('a', OpapApp.formatAmount(OpapApp.toNumber(firstCategory.jackpot) + OpapApp.toNumber(firstCategory.distributed)));
+            OpapApp.setText('b', firstCategory.winners);
+            OpapApp.setText('c', firstCategory.winners === 0 ? 'ΤΖΑΚΠΟΤ' : OpapApp.formatAmount(firstCategory.divident));
 
-                    document.getElementById('time').innerHTML = new Date(date).toLocaleDateString('el-GR');
-                    document.getElementById('kl').innerHTML = 'ΚΛΗΡΩΣΗ:' + data[1].drawId;
-
-                    var arj = data[1].winningNumbers.list;
-                    arj.sort(function (a, b) {
-                        return a - b
-                    });
-                    console.log(data)
-                    document.getElementById('joker1').innerHTML = data[1].winningNumbers.list["0"];
-                    document.getElementById('joker2').innerHTML = data[1].winningNumbers.list["1"];
-                    document.getElementById('joker3').innerHTML = data[1].winningNumbers.list["2"];
-                    document.getElementById('joker4').innerHTML = data[1].winningNumbers.list["3"];
-                    document.getElementById('joker5').innerHTML = data[1].winningNumbers.list["4"];
-                    document.getElementById('joker6').innerHTML = data[1].winningNumbers.bonus["0"];
-
-                    var jak = document.getElementById('a').innerHTML = parseInt(data[1].prizeCategories[0].jackpot + data[1].prizeCategories["0"].distributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-                    document.getElementById('b').innerHTML = data[1].prizeCategories["0"].winners;
-
-                    var c = data[1].prizeCategories["0"].winners;
-                    if (c === 0) {
-                        document.getElementById('c').innerHTML = "ΤΖΑΚΠΟΤ";
-                    } else {
-                        document.getElementById('c').innerHTML = (data[1].prizeCategories[0].divident).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    }
-
-                    var jakpot = document.getElementById('jakpot');
-                    if (jak === 0) {
-                        jakpot.style.opacity = 0;
-                    };
-
-                    jakpot.innerHTML = '<span style="color: yellow;">ΤΖΑΚΠΟΤ : </span>' + (data[0].prizeCategories[0].minimumDistributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-
-                    document.querySelector('#a5').innerHTML = parseInt(data[1].prizeCategories[1].jackpot + data[1].prizeCategories[1].distributed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('b5').innerHTML = data[1].prizeCategories[1].winners;
-                    document.getElementById('c5').innerHTML = parseInt(data[1].prizeCategories[1].divident).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-                    document.getElementById('b41').innerHTML = data[1].prizeCategories[2].winners;
-                    document.getElementById('c41').innerHTML = (data[1].prizeCategories[2].divident).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-                    document.getElementById('b4').innerHTML = (data[1].prizeCategories[3].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('c4').innerHTML = data[1].prizeCategories[3].divident;
-
-                    document.getElementById('b31').innerHTML = (data[1].prizeCategories[4].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('c31').innerHTML = data[1].prizeCategories[4].divident;
-
-                    document.getElementById('b3').innerHTML = (data[1].prizeCategories[5].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('c3').innerHTML = data[1].prizeCategories[5].divident;
-
-                    document.getElementById('b21').innerHTML = (data[1].prizeCategories[6].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('c21').innerHTML = data[1].prizeCategories[6].divident;
-
-                    document.getElementById('b11').innerHTML = (data[1].prizeCategories[7].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('c11').innerHTML = data[1].prizeCategories[7].divident;
-
-                    document.getElementById('b2').innerHTML = (data[1].prizeCategories[8].winners).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    document.getElementById('c2').innerHTML = data[1].prizeCategories[8].divident;
-
-                    // Set the date we're counting down to
-                    var countDownDate = new Date(data[0].drawTime).getTime();
-
-                    // Update the count down every 1 second
-                    var x = setInterval(function () {
-
-                        // Get today's date and time
-                        var now = new Date().getTime();
-
-                        // Find the distance between now and the count down date
-                        var distance = countDownDate - now;
-
-                        // Time calculations for days, hours, minutes and seconds
-                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                        // Output the result in an element with id="t"
-                        document.querySelector('.days').innerHTML = ('0' + days).slice(-2);
-                        document.querySelector('.hours').innerHTML = ('0' + hours).slice(-2);
-                        document.querySelector('.minutes').innerHTML = ('0' + minutes).slice(-2);
-                        document.querySelector('.seconds').innerHTML = ('0' + seconds).slice(-2);
-
-                        // If the count down is over, write some text 
-                        if (distance < 0) {
-                            clearInterval(x);
-
-                        }
-                    }, 1000);
-
-                });
+            OpapApp.setJackpot('jakpot', 'yellow', nextDraw.prizeCategories[0].minimumDistributed);
+            if (jackpotNode) {
+                jackpotNode.style.opacity = OpapApp.toNumber(firstCategory.jackpot) === 0 ? '0' : '1';
             }
-        )
-        .catch(function (err) {
-            'use strict';
-            console.log('Fetch Error :-S', err);
+
+            OpapApp.setText('a5', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[1].jackpot) + OpapApp.toNumber(prizeCategories[1].distributed)));
+            OpapApp.setText('b5', prizeCategories[1].winners);
+            OpapApp.setText('c5', OpapApp.formatAmount(prizeCategories[1].divident));
+
+            OpapApp.setText('a41', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[2].distributed)));
+            OpapApp.setText('b41', prizeCategories[2].winners);
+            OpapApp.setText('c41', OpapApp.formatAmount(prizeCategories[2].divident));
+
+            OpapApp.setText('a4', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[3].distributed)));
+            OpapApp.setText('b4', OpapApp.formatInteger(prizeCategories[3].winners));
+            OpapApp.setText('c4', OpapApp.formatAmount(prizeCategories[3].divident));
+
+            OpapApp.setText('a31', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[4].distributed)));
+            OpapApp.setText('b31', OpapApp.formatInteger(prizeCategories[4].winners));
+            OpapApp.setText('c31', OpapApp.formatAmount(prizeCategories[4].divident));
+
+            OpapApp.setText('a3', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[5].distributed)));
+            OpapApp.setText('b3', OpapApp.formatInteger(prizeCategories[5].winners));
+            OpapApp.setText('c3', OpapApp.formatAmount(prizeCategories[5].divident));
+
+            OpapApp.setText('a21', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[6].distributed)));
+            OpapApp.setText('b21', OpapApp.formatInteger(prizeCategories[6].winners));
+            OpapApp.setText('c21', OpapApp.formatAmount(prizeCategories[6].divident));
+
+            OpapApp.setText('a11', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[7].distributed)));
+            OpapApp.setText('b11', OpapApp.formatInteger(prizeCategories[7].winners));
+            OpapApp.setText('c11', OpapApp.formatAmount(prizeCategories[7].divident));
+
+            OpapApp.setText('a2', OpapApp.formatAmount(OpapApp.toNumber(prizeCategories[8].distributed)));
+            OpapApp.setText('b2', OpapApp.formatInteger(prizeCategories[8].winners));
+            OpapApp.setText('c2', OpapApp.formatAmount(prizeCategories[8].divident));
+
+            OpapApp.applyCountdown('clockdiv', nextDraw.drawTime);
+        }
+    });
+
+    var ml4 = {};
+    ml4.opacityIn = [0, 1];
+    ml4.scaleIn = [0.2, 1];
+    ml4.scaleOut = 3;
+    ml4.durationIn = 800;
+    ml4.durationOut = 600;
+    ml4.delay = 500;
+
+    anime.timeline({ loop: true })
+        .add({
+            targets: '.ml4 .letters-1',
+            opacity: ml4.opacityIn,
+            scale: ml4.scaleIn,
+            duration: ml4.durationIn
+        }).add({
+            targets: '.ml4 .letters-1',
+            opacity: 0,
+            scale: ml4.scaleOut,
+            duration: ml4.durationOut,
+            easing: 'easeInExpo',
+            delay: ml4.delay
+        }).add({
+            targets: '.ml4 .letters-2',
+            opacity: ml4.opacityIn,
+            scale: ml4.scaleIn,
+            duration: ml4.durationIn
+        }).add({
+            targets: '.ml4 .letters-2',
+            opacity: 0,
+            scale: ml4.scaleOut,
+            duration: ml4.durationOut,
+            easing: 'easeInExpo',
+            delay: ml4.delay
+        }).add({
+            targets: '.ml4 .letters-3',
+            opacity: ml4.opacityIn,
+            scale: ml4.scaleIn,
+            duration: ml4.durationIn
+        }).add({
+            targets: '.ml4 .letters-3',
+            opacity: 0,
+            scale: ml4.scaleOut,
+            duration: ml4.durationOut,
+            easing: 'easeInExpo',
+            delay: ml4.delay
+        }).add({
+            targets: '.ml4 .letters-4',
+            opacity: ml4.opacityIn,
+            scale: ml4.scaleIn,
+            duration: ml4.durationIn
+        }).add({
+            targets: '.ml4 .letters-4',
+            opacity: 0,
+            scale: ml4.scaleOut,
+            duration: ml4.durationOut,
+            easing: 'easeInExpo',
+            delay: ml4.delay
+        }).add({
+            targets: '.ml4 .letters-5',
+            opacity: ml4.opacityIn,
+            scale: ml4.scaleIn,
+            duration: ml4.durationIn
+        }).add({
+            targets: '.ml4 .letters-5',
+            opacity: 0,
+            scale: ml4.scaleOut,
+            duration: ml4.durationOut,
+            easing: 'easeInExpo',
+            delay: ml4.delay
+        }).add({
+            targets: '.ml4',
+            opacity: 0,
+            duration: 500,
+            delay: 500
         });
-}, 9e3);
-
-
-  var ml4 = {};
-ml4.opacityIn = [0,1];
-ml4.scaleIn = [0.2, 1];
-ml4.scaleOut = 3;
-ml4.durationIn = 800;
-ml4.durationOut = 600;
-ml4.delay = 500;
-
-anime.timeline({loop: true})
-  .add({
-    targets: '.ml4 .letters-1',
-    opacity: ml4.opacityIn,
-    scale: ml4.scaleIn,
-    duration: ml4.durationIn
-  }).add({
-    targets: '.ml4 .letters-1',
-    opacity: 0,
-    scale: ml4.scaleOut,
-    duration: ml4.durationOut,
-    easing: "easeInExpo",
-    delay: ml4.delay
-  }).add({
-    targets: '.ml4 .letters-2',
-    opacity: ml4.opacityIn,
-    scale: ml4.scaleIn,
-    duration: ml4.durationIn
-  }).add({
-    targets: '.ml4 .letters-2',
-    opacity: 0,
-    scale: ml4.scaleOut,
-    duration: ml4.durationOut,
-    easing: "easeInExpo",
-    delay: ml4.delay
-  }).add({
-    targets: '.ml4 .letters-3',
-    opacity: ml4.opacityIn,
-    scale: ml4.scaleIn,
-    duration: ml4.durationIn
-  }).add({
-    targets: '.ml4 .letters-3',
-    opacity: 0,
-    scale: ml4.scaleOut,
-    duration: ml4.durationOut,
-    easing: "easeInExpo",
-    delay: ml4.delay
-  }).add({
-    targets: '.ml4 .letters-4',
-    opacity: ml4.opacityIn,
-    scale: ml4.scaleIn,
-    duration: ml4.durationIn
-  }).add({
-    targets: '.ml4 .letters-4',
-    opacity: 0,
-    scale: ml4.scaleOut,
-    duration: ml4.durationOut,
-    easing: "easeInExpo",
-    delay: ml4.delay
-  }).add({
-    targets: '.ml4 .letters-5',
-    opacity: ml4.opacityIn,
-    scale: ml4.scaleIn,
-    duration: ml4.durationIn
-  }).add({
-    targets: '.ml4 .letters-5',
-    opacity: 0,
-    scale: ml4.scaleOut,
-    duration: ml4.durationOut,
-    easing: "easeInExpo",
-    delay: ml4.delay
-  }).add({
-    targets: '.ml4',
-    opacity: 0,
-    duration: 500,
-    delay: 500
-  });
-  
+})();
