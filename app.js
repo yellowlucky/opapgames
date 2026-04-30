@@ -2,7 +2,11 @@
     'use strict';
 
     var countdownTimers = {};
+    var countdownPartCache = {};
     var pollTimers = {};
+    var numberAnimationTimers = {};
+    var pollConfigs = {};
+    var visibilityRefreshTimer = null;
 
     function toNumber(value) {
         var number = Number(value);
@@ -17,12 +21,22 @@
         node.textContent = value == null ? '' : String(value);
     }
 
-    function setHtml(target, value) {
-        var node = typeof target === 'string' ? document.getElementById(target) : target;
+    function setJackpot(targetId, labelColor, amount) {
+        var node = document.getElementById(targetId);
+        var labelNode;
+
         if (!node) {
             return;
         }
-        node.innerHTML = value == null ? '' : String(value);
+
+        node.textContent = '';
+
+        labelNode = document.createElement('span');
+        labelNode.style.color = labelColor;
+        labelNode.textContent = 'ΤΖΑΚΠΟΤ: ';
+
+        node.appendChild(labelNode);
+        node.appendChild(document.createTextNode(formatAmount(amount)));
     }
 
     function formatDate(drawTime) {
@@ -59,20 +73,139 @@
         });
     }
 
-    function updateDrawMeta(dateId, drawIdId, draw) {
-        setText(dateId, formatDate(draw.drawTime));
-        setText(drawIdId, 'ΚΛΗΡΩΣΗ:' + draw.drawId);
+    function canAnimateLive() {
+        return !document.hidden && document.visibilityState !== 'hidden';
     }
 
-    function applyCountdown(clockId, targetTime) {
-        var root = document.getElementById(clockId);
-        if (!root) {
+    function updateDrawMeta(dateId, drawIdId, draw) {
+        var dateNode = document.getElementById(dateId);
+
+        setText(dateId, formatDate(draw.drawTime));
+        setText(drawIdId, '\u039A\u039B\u0397\u03A1\u03A9\u03A3\u0397:' + draw.drawId);
+
+        if (dateNode) {
+            dateNode.setAttribute('data-date-value', formatDate(draw.drawTime));
+        }
+    }
+
+    function clearNumberAnimation(key) {
+        if (!numberAnimationTimers[key]) {
             return;
         }
 
-        if (countdownTimers[clockId]) {
-            clearInterval(countdownTimers[clockId]);
+        numberAnimationTimers[key].forEach(function (timerId) {
+            clearTimeout(timerId);
+        });
+
+        numberAnimationTimers[key] = [];
+    }
+
+    function animateNumberList(key, ids, values, shouldAnimate) {
+        var nodes = ids.map(function (id) {
+            return document.getElementById(id);
+        }).filter(Boolean);
+        var canAnimate = shouldAnimate && canAnimateLive();
+
+        if (!numberAnimationTimers[key]) {
+            numberAnimationTimers[key] = [];
         }
+
+        clearNumberAnimation(key);
+
+        if (!canAnimate) {
+            renderNumberList(ids, values);
+            nodes.forEach(function (node) {
+                var stack = node.closest('.fa-stack');
+                if (stack) {
+                    stack.classList.remove('game-ball-enter', 'game-ball-resetting');
+                }
+            });
+            return;
+        }
+
+        nodes.forEach(function (node) {
+            var stack = node.closest('.fa-stack');
+            if (stack) {
+                stack.classList.add('game-ball-resetting');
+            }
+        });
+
+        numberAnimationTimers[key].push(setTimeout(function () {
+            renderNumberList(ids, values);
+
+            nodes.forEach(function (node, index) {
+                var stack = node.closest('.fa-stack');
+                if (!stack) {
+                    return;
+                }
+
+                stack.classList.remove('game-ball-resetting');
+
+                numberAnimationTimers[key].push(setTimeout(function () {
+                    stack.classList.add('game-ball-enter');
+
+                    numberAnimationTimers[key].push(setTimeout(function () {
+                        stack.classList.remove('game-ball-enter');
+                    }, 260));
+                }, index * 70));
+            });
+        }, 90));
+    }
+
+    function setPendingState(timeId, circleSelector, isPending) {
+        var timeNode = document.getElementById(timeId);
+        var circleNode = document.querySelector(circleSelector);
+
+        if (timeNode) {
+            if (isPending) {
+                timeNode.textContent = '\u03A3\u03B5 \u03B1\u03BD\u03B1\u03BC\u03BF\u03BD\u03AE \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03B5\u03C3\u03BC\u03AC\u03C4\u03C9\u03BD';
+            } else if (timeNode.getAttribute('data-date-value')) {
+                timeNode.textContent = timeNode.getAttribute('data-date-value');
+            }
+
+            timeNode.classList.toggle('pending-badge', isPending);
+        }
+
+        if (circleNode) {
+            circleNode.classList.toggle('results-pending', isPending);
+        }
+    }
+
+    function clearCountdown(clockId) {
+        if (countdownTimers[clockId]) {
+            clearTimeout(countdownTimers[clockId]);
+            countdownTimers[clockId] = null;
+        }
+    }
+
+    function getCountdownParts(clockId) {
+        var root = document.getElementById(clockId);
+
+        if (!root) {
+            return null;
+        }
+
+        if (!countdownPartCache[clockId] || countdownPartCache[clockId].root !== root) {
+            countdownPartCache[clockId] = {
+                root: root,
+                days: root.querySelector('div:nth-child(1) > span'),
+                hours: root.querySelector('div:nth-child(2) > span'),
+                minutes: root.querySelector('div:nth-child(3) > span'),
+                seconds: root.querySelector('div:nth-child(4) > span')
+            };
+        }
+
+        return countdownPartCache[clockId];
+    }
+
+    function applyCountdown(clockId, targetTime) {
+        var countdown = getCountdownParts(clockId);
+
+        if (!countdown) {
+            return;
+        }
+
+        clearCountdown(clockId);
 
         function tick() {
             var distance = new Date(targetTime).getTime() - Date.now();
@@ -83,19 +216,28 @@
             var minutes = Math.floor((safeDistance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((safeDistance % (1000 * 60)) / 1000);
 
-            setText(root.querySelector('div:nth-child(1) > span'), String(days).padStart(2, '0'));
-            setText(root.querySelector('div:nth-child(2) > span'), String(hours).padStart(2, '0'));
-            setText(root.querySelector('div:nth-child(3) > span'), String(minutes).padStart(2, '0'));
-            setText(root.querySelector('div:nth-child(4) > span'), String(seconds).padStart(2, '0'));
+            setText(countdown.days, String(days).padStart(2, '0'));
+            setText(countdown.hours, String(hours).padStart(2, '0'));
+            setText(countdown.minutes, String(minutes).padStart(2, '0'));
+            setText(countdown.seconds, String(seconds).padStart(2, '0'));
 
-            if (distance <= 0 && countdownTimers[clockId]) {
-                clearInterval(countdownTimers[clockId]);
-                countdownTimers[clockId] = null;
+            if (distance <= 0) {
+                clearCountdown(clockId);
+                return;
             }
+
+            clearCountdown(clockId);
+
+            countdownTimers[clockId] = setTimeout(function () {
+                tick();
+            }, safeDistance < 1000 ? 250 : ((safeDistance % 1000) || 1000));
         }
 
         tick();
-        countdownTimers[clockId] = setInterval(tick, 1000);
+    }
+
+    function isWithinPendingWindow(targetTime, windowMs) {
+        return Number(targetTime) - Date.now() <= (windowMs || 60000);
     }
 
     function fetchLastDraws(gameId, count) {
@@ -108,42 +250,138 @@
             });
     }
 
+    function getAdaptiveInterval(nextDrawTime, gameKey, fallbackMs) {
+        var target = new Date(nextDrawTime).getTime();
+        var msLeft = Number.isFinite(target) ? target - Date.now() : Number.NaN;
+        var fastGames = ['kino', 'super3'];
+        var normalizedKey = String(gameKey || '').toLowerCase();
+
+        // Όταν το tab είναι hidden, δεν κυνηγάμε ultra-fast refresh.
+        if (document.hidden || document.visibilityState === 'hidden') {
+            return 30000;
+        }
+
+        if (!Number.isFinite(msLeft)) {
+            return fallbackMs || 15000;
+        }
+
+        // Kino / Super3: τελευταία 30 δευτερόλεπτα πολύ γρήγορο polling.
+        if (fastGames.indexOf(normalizedKey) !== -1) {
+            if (msLeft <= 30000) {
+                return 3000;
+            }
+            if (msLeft <= 2 * 60000) {
+                return 5000;
+            }
+        }
+
+        // Γενική λογική για όλα τα παιχνίδια.
+        if (msLeft <= 60000) {
+            return 5000;
+        }
+        if (msLeft <= 5 * 60000) {
+            return 10000;
+        }
+
+        return 30000;
+    }
+
     function startPolling(config) {
         var key = config.key || String(config.gameId);
-        var intervalMs = config.intervalMs || 15000;
+        var fallbackIntervalMs = config.intervalMs || 15000;
+        var isRunning = false;
+
+        function clearPollTimer() {
+            if (pollTimers[key]) {
+                clearTimeout(pollTimers[key]);
+                pollTimers[key] = null;
+            }
+        }
+
+        function scheduleNext(nextDrawTime) {
+            var nextInterval = getAdaptiveInterval(nextDrawTime, key, fallbackIntervalMs);
+
+            clearPollTimer();
+            pollTimers[key] = setTimeout(function () {
+                run();
+            }, nextInterval);
+        }
 
         function run() {
+            if (isRunning) {
+                return;
+            }
+
+            isRunning = true;
+
             fetchLastDraws(config.gameId, config.fetchCount || 2)
                 .then(function (data) {
+                    var nextDraw = data && data[0];
+
                     config.onData(data);
+                    scheduleNext(nextDraw && nextDraw.drawTime);
                 })
                 .catch(function (error) {
-                    console.log('Fetch Error :-S', error);
+                    console.warn('Fetch error for', key, error);
+                    scheduleNext();
+                })
+                .finally(function () {
+                    isRunning = false;
                 });
         }
 
-        if (pollTimers[key]) {
-            clearInterval(pollTimers[key]);
+        pollConfigs[key] = {
+            run: run
+        };
+
+        clearPollTimer();
+        run();
+    }
+
+    function refreshAllPolls() {
+        Object.keys(pollConfigs).forEach(function (key) {
+            if (pollConfigs[key] && typeof pollConfigs[key].run === 'function') {
+                pollConfigs[key].run();
+            }
+        });
+    }
+
+    function scheduleVisibilityRefresh() {
+        if (visibilityRefreshTimer) {
+            clearTimeout(visibilityRefreshTimer);
         }
 
-        run();
-        pollTimers[key] = setInterval(run, intervalMs);
+        visibilityRefreshTimer = setTimeout(function () {
+            refreshAllPolls();
+        }, 40);
     }
 
-    function setJackpot(targetId, labelColor, amount) {
-        setHtml(targetId, '<span style="color: ' + labelColor + ';">ΤΖΑΚΠΟΤ: </span>' + formatAmount(amount));
-    }
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            return;
+        }
+
+        scheduleVisibilityRefresh();
+    });
+
+    window.addEventListener('focus', scheduleVisibilityRefresh);
+    window.addEventListener('pageshow', scheduleVisibilityRefresh);
 
     global.OpapApp = {
+        animateNumberList: animateNumberList,
         applyCountdown: applyCountdown,
+        canAnimateLive: canAnimateLive,
+        clearNumberAnimation: clearNumberAnimation,
         fetchLastDraws: fetchLastDraws,
         formatAmount: formatAmount,
         formatClock: formatClock,
         formatDate: formatDate,
         formatInteger: formatInteger,
+        getAdaptiveInterval: getAdaptiveInterval,
+        isWithinPendingWindow: isWithinPendingWindow,
         renderNumberList: renderNumberList,
-        setHtml: setHtml,
         setJackpot: setJackpot,
+        setPendingState: setPendingState,
         setText: setText,
         startPolling: startPolling,
         toNumber: toNumber,

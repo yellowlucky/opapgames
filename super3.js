@@ -1,10 +1,58 @@
 (function () {
     'use strict';
 
+    var previousDrawId = null;
+    var super3AnimationTimers = [];
+
     function findCategory(categories, id) {
         return categories.find(function (category) {
             return category.id === id;
         });
+    }
+
+    function clearBallTimers() {
+        super3AnimationTimers.forEach(function (timerId) {
+            clearTimeout(timerId);
+        });
+        super3AnimationTimers = [];
+    }
+
+    function animateBalls(values, shouldAnimate) {
+        var ids = ['super31', 'super32', 'super33'];
+        var nodes = ids.map(function (id) {
+            return document.getElementById(id);
+        }).filter(Boolean);
+
+        clearBallTimers();
+
+        if (!shouldAnimate || !OpapApp.canAnimateLive()) {
+            OpapApp.renderNumberList(ids, values);
+            nodes.forEach(function (node) {
+                node.closest('.fa-stack').classList.remove('super3-ball-enter', 'super3-ball-resetting');
+            });
+            return;
+        }
+
+        nodes.forEach(function (node) {
+            node.closest('.fa-stack').classList.add('super3-ball-resetting');
+        });
+
+        super3AnimationTimers.push(setTimeout(function () {
+            OpapApp.renderNumberList(ids, values);
+
+            nodes.forEach(function (node, index) {
+                var stack = node.closest('.fa-stack');
+                stack.classList.remove('super3-ball-resetting');
+
+                super3AnimationTimers.push(setTimeout(function () {
+                    stack.classList.add('super3-ball-enter');
+
+                    super3AnimationTimers.push(setTimeout(function () {
+                        stack.classList.remove('super3-ball-enter');
+                    }, 210));
+                }, index * 45));
+            });
+        }, 10));
     }
 
     function getColorMeta(colorName) {
@@ -15,11 +63,11 @@
         }
 
         if (normalized === 'red') {
-            return { label: '\u039A\u03CC\u03BA\u03BA\u03B9\u03BD\u03BF', value: '#ff2020', tint: 'rgba(255, 32, 32, 0.58)', strong: 'rgba(228, 18, 40, 0.64)', soft: 'rgba(255, 32, 32, 0.26)', text: '#fff7f7' };
+            return { label: '\u039A\u03CC\u03BA\u03BA\u03B9\u03BD\u03BF', value: '#ff1717', tint: 'rgba(255, 23, 23, 0.66)', strong: 'rgba(240, 20, 20, 0.74)', soft: 'rgba(255, 23, 23, 0.3)', text: '#fff7f7' };
         }
 
         if (normalized === 'yellow') {
-            return { label: '\u039A\u03AF\u03C4\u03C1\u03B9\u03BD\u03BF', value: '#ffe119', tint: 'rgba(255, 225, 25, 0.5)', strong: 'rgba(230, 179, 8, 0.58)', soft: 'rgba(255, 225, 25, 0.22)', text: '#fffef2' };
+            return { label: '\u039A\u03AF\u03C4\u03C1\u03B9\u03BD\u03BF', value: '#ffea00', tint: 'rgba(255, 234, 0, 0.58)', strong: 'rgba(255, 208, 0, 0.68)', soft: 'rgba(255, 234, 0, 0.26)', text: '#fffef2' };
         }
 
         if (normalized === 'blue') {
@@ -37,6 +85,9 @@
         onData: function (data) {
             var currentDraw = data[1];
             var nextDraw = data[0];
+            var shouldAnimate = previousDrawId != null &&
+                previousDrawId !== currentDraw.drawId &&
+                OpapApp.canAnimateLive();
             var categories = currentDraw.prizeCategories;
             var colorCategory1 = findCategory(categories, 4);
             var colorCategory2 = findCategory(categories, 5);
@@ -50,7 +101,7 @@
             var super3Card = document.getElementById('super3-card');
 
             OpapApp.updateDrawMeta('timesuper3', 'klsuper3', currentDraw);
-            OpapApp.renderNumberList(['super31', 'super32', 'super33'], currentDraw.winningNumbers.list);
+            animateBalls(currentDraw.winningNumbers.list, shouldAnimate);
 
             OpapApp.setText('s2', categories[0].winners);
             OpapApp.setText('s3', OpapApp.formatAmount(categories[0].fixed));
@@ -85,6 +136,7 @@
             }
 
             OpapApp.applyCountdown('clockdiv4', nextDraw.drawTime);
+            previousDrawId = currentDraw.drawId;
         }
     });
 })();

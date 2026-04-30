@@ -1,11 +1,10 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="el">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="icon" href="../../../../favicon.ico" />
     <title>ΠΑΙΧΝΙΔΙΑ ΟΠΑΠ</title>
 
     <!-- Bootstrap core CSS -->
@@ -22,24 +21,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap"
-      rel="stylesheet"
-    />
   </head>
 
   <body>
     <div class="container-fluid row text-center m-auto main1">
-      <!--<h1 class="ml4 col-md-12">
-            <span class="letters letters-1">Ξ Ξ΅Ξ‘ΞΞ¤ΞΞ΅Ξ•Ξ™Ξ</span>
-            <span class="letters letters-2">ΞΞ Ξ‘Ξ </span>
-            <span class="letters letters-3">ΞΞ‘Ξ¤Ξ£Ξ‘Ξ΅ΞΞ£ Ξ™Ξ©Ξ‘ΞΞΞ—Ξ£</span>
-            <span class="letters letters-4">ΞΞ‘Ξ™Ξ‘ΞΞ”Ξ΅ΞΞ¥ 32</span>
-            <span class="letters letters-5">Ξ•Ξ¥ΞΞ£ΞΞΞ£ ΞΞ•Ξ£Ξ£Ξ‘Ξ›ΞΞΞ™ΞΞ—</span>
-          </h1>-->
-
       <div class="col-md-4 p-1">
-        <div class="card" style="height: 51vh">
+        <div class="card card-tall card-joker">
           <div class="game-header">
               <img
                 src="img/TZOKERHero.png"
@@ -69,11 +56,11 @@
 
           <div class="kltime">
             <span class="r" id="time"></span>
-            <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+            <span class="ns-label">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
             <span class="l" id="kl"></span>
           </div>
 
-          <div class="circle">
+          <div class="circle top-row-circle">
             <span class="fa-stack">
               <span class="fa fa-circle fa-stack-2x"></span>
               <strong class="fa-stack-1x" id="joker1"> </strong>
@@ -169,9 +156,9 @@
       </div>
 
       <div class="col-md-4 p-1">
-        <div class="card" style="height: 51vh">
+        <div class="card card-tall card-lotto">
           <div class="game-header">
-            <img src="img/lotto-new.png" alt="lottoimg" class="h-100 w-100" />
+            <img src="img/lotto-new.png" alt="lottoimg" class="header-fill-img" />
             <div id="clockdiv2">
               <div>
                 <span class="days"></span>
@@ -190,16 +177,16 @@
                 <div class="smalltext">ΔΕΥΤ.</div>
               </div>
             </div>
-            <div id="jakpotlotto" style="color: blue"></div>
+            <div id="jakpotlotto"></div>
           </div>
 
           <div class="kltime">
             <span class="r" id="timeLotto"></span>
-            <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+            <span class="ns-label">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
             <span class="l" id="klLotto"></span>
           </div>
 
-          <div class="circle">
+          <div class="circle top-row-circle">
             <span class="fa-stack">
               <span class="fa fa-circle fa-stack-2x"></span>
               <strong class="fa-stack-1x" id="lotto1"> </strong>
@@ -269,9 +256,9 @@
       </div>
 
       <div class="col-md-4 p-1">
-        <div class="card" style="height: 51vh">
+        <div class="card card-tall card-proto">
           <div class="game-header">
-            <img src="img/proto-logo.svg" alt="protoimg" class="h-100 w-100" />
+            <img src="img/proto-logo.svg" alt="protoimg" class="header-fill-img" />
             <div id="clockdiv3">
               <div>
                 <span class="days"></span>
@@ -295,11 +282,11 @@
 
           <div class="kltime">
             <span class="r" id="timeproto"></span>
-            <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+            <span class="ns-label">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
             <span class="l" id="klproto"></span>
           </div>
 
-          <div class="circle">
+          <div class="circle top-row-circle">
             <span class="fa-stack">
               <span class="fa fa-circle fa-stack-2x"></span>
               <strong class="fa-stack-1x" id="proto1"> </strong>
@@ -382,17 +369,17 @@
     <div class="container-fluid row text-center m-auto main2">
 
       <div class="col-md-4 p-1">
-        <div class="card"  id="kino" style="height: 40vh">
-        <div id="he" style="display: flex; justify-content: space-between">
-          <span id="klk"></span><span id="or"></span>
+        <div class="card card-short card-kino"  id="kino">
+        <div id="he">
+          <span class="kino-header-badge" id="klk"></span><span class="kino-header-badge" id="or"></span>
         </div>
       </div>
     </div>
 
       <div class="col-md-4 p-1">
-        <div class="card" id="super3-card" style="height: 40vh">
-          <div style="width: 100%; height: 15%">
-            <img src="img/super3-new-logo.svg" alt="super3img" class="h-100 w-100" />
+        <div class="card card-short card-super3" id="super3-card">
+          <div class="game-header">
+            <img src="img/super3-new-logo.svg" alt="super3img" class="header-fill-img" />
             <div id="clockdiv4">
               <div>
                 <span class="days"></span>
@@ -415,7 +402,7 @@
 
           <div class="kltime">
             <span class="r" id="timesuper3"></span>
-            <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+            <span class="ns-label">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
             <span class="l" id="klsuper3"></span>
           </div>
 
@@ -439,7 +426,7 @@
             <span class="super3-color-chip" id="super3-color-chip"></span>
           </div>
 
-          <table style="width: 100%; height: 63%">
+          <table class="super3-table">
             <tr class="super3-color-row-title">
               <th class="w-25">Με χρώμα</th>
               <th>Επιτυχίες</th>
@@ -485,12 +472,12 @@
       </div>
 
       <div class="col-md-4 p-1">
-        <div class="card" style="height: 40vh">
-          <div style="width: 100%; height: 15%">
+        <div class="card card-short card-extra5">
+          <div class="game-header">
                 <img
                  src="img/extra5.png"
                   alt="super3img"
-                  style="width: 100%; height: 100%"
+                  class="header-fill-img"
               />
             <div id="clockdiv5">
               <div>
@@ -514,7 +501,7 @@
 
           <div class="kltime">
             <span class="r" id="timeextra5"></span>
-            <span id="ns">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
+            <span class="ns-label">ΝΙΚΗΤΡΙΑ ΣΤΗΛΗ</span>
             <span class="l" id="klextra5"></span>
           </div>
 
@@ -545,7 +532,7 @@
             </span>
           </div>
 
-          <table style="width: 100%; height: 66%">
+          <table class="extra5-table">
             <tr>
               <th class="w-25">Κατηγορίες</th>
               <th>Επιτυχίες</th>
@@ -589,7 +576,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <script src="app.js"></script>
     <script src="joker.js"></script>
     <script src="lotto.js"></script>

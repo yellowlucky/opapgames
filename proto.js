@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    var previousDrawId = null;
+
     OpapApp.startPolling({
         key: 'proto',
         gameId: 2101,
@@ -9,15 +11,20 @@
         onData: function (data) {
             var currentDraw = data[1];
             var nextDraw = data[0];
+            var isPending = OpapApp.isWithinPendingWindow(nextDraw.drawTime, 60000);
+            var shouldAnimate = previousDrawId != null && previousDrawId !== currentDraw.drawId;
             var prizeCategories = currentDraw.prizeCategories;
             var digits = currentDraw.winningNumbers.list;
             var jackpotNode = document.getElementById('jakpotproto');
 
             OpapApp.updateDrawMeta('timeproto', 'klproto', currentDraw);
-            OpapApp.renderNumberList(
+            OpapApp.animateNumberList(
+                'proto-main',
                 ['proto1', 'proto2', 'proto3', 'proto4', 'proto5', 'proto6', 'proto7'],
-                digits
+                digits,
+                shouldAnimate
             );
+            OpapApp.setPendingState('timeproto', '.main1 .col-md-4:nth-child(3) .circle', isPending);
 
             OpapApp.setText('p2', digits.join(''));
             OpapApp.setText('p3', prizeCategories[0].winners);
@@ -49,6 +56,7 @@
             OpapApp.setText('psi4', OpapApp.formatAmount(prizeCategories[5].fixed));
 
             OpapApp.applyCountdown('clockdiv3', nextDraw.drawTime);
+            previousDrawId = currentDraw.drawId;
         }
     });
 })();

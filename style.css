@@ -4,7 +4,8 @@
     --page-bottom: #030913;
     --card-bg:
         linear-gradient(180deg, rgba(18, 34, 55, 0.98) 0%, rgba(13, 24, 40, 0.98) 100%);
-    --card-border: rgba(255, 216, 73, 0.92);
+    --card-border: rgba(208, 175, 86, 0.54);
+    --card-border-outer: rgba(12, 20, 34, 0.9);
     --panel-dark: rgba(8, 16, 27, 0.9);
     --panel-mid: rgba(18, 35, 57, 0.96);
     --panel-soft: rgba(255, 255, 255, 0.07);
@@ -27,9 +28,11 @@ body {
     font-size: calc(0.72vw + 0.72vh + 0.32vmin);
     color: var(--text-main);
     background:
-        radial-gradient(circle at 50% 0%, rgba(45, 116, 226, 0.3) 0%, rgba(45, 116, 226, 0) 22%),
-        radial-gradient(circle at 50% 100%, rgba(15, 56, 104, 0.42) 0%, rgba(15, 56, 104, 0) 18%),
-        linear-gradient(180deg, var(--page-top) 0%, var(--page-mid) 47%, var(--page-bottom) 100%);
+        radial-gradient(circle at 50% -8%, rgba(108, 191, 255, 0.22) 0%, rgba(108, 191, 255, 0) 20%),
+        radial-gradient(circle at 18% 22%, rgba(36, 109, 214, 0.14) 0%, rgba(36, 109, 214, 0) 26%),
+        radial-gradient(circle at 82% 24%, rgba(27, 81, 173, 0.16) 0%, rgba(27, 81, 173, 0) 24%),
+        radial-gradient(circle at 50% 100%, rgba(15, 56, 104, 0.34) 0%, rgba(15, 56, 104, 0) 18%),
+        linear-gradient(180deg, #02060f 0%, #082042 34%, #0a2c54 52%, #071a34 74%, #030913 100%);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center;
@@ -52,14 +55,31 @@ body {
     flex-direction: column;
     background: var(--card-bg);
     color: var(--text-main);
-    border: 1px solid var(--card-border);
+    border: 1px solid var(--card-border-outer);
     border-radius: 0.95rem;
     box-shadow:
         0 20px 38px rgba(0, 0, 0, 0.38),
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 0 1px rgba(208, 175, 86, 0.38),
         inset 0 -12px 24px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     text-align: center;
+}
+
+#kino.card {
+    box-shadow:
+        0 20px 38px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 0 0 1px rgba(31, 56, 82, 0.48),
+        inset 0 -12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-tall {
+    height: 51vh;
+}
+
+.card-short {
+    height: 40vh;
 }
 
 .card > div:first-child {
@@ -88,7 +108,17 @@ body {
     height: 100% !important;
 }
 
-.main1 .col-md-4:first-child .card > div:first-child {
+.super3-table {
+    width: 100%;
+    height: 63%;
+}
+
+.extra5-table {
+    width: 100%;
+    height: 66%;
+}
+
+.card-joker > div:first-child {
     background:
         radial-gradient(circle at 68% 18%, rgba(143, 231, 255, 0.3) 0%, rgba(143, 231, 255, 0) 18%),
         linear-gradient(135deg, rgba(255, 255, 255, 0.045) 0 22%, transparent 22% 44%, rgba(255, 255, 255, 0.035) 44% 66%, transparent 66% 100%),
@@ -96,13 +126,13 @@ body {
         linear-gradient(135deg, #36aff3 0%, #2d9ae5 40%, #256fcd 72%, #224fad 100%);
 }
 
-.main1 .col-md-4:first-child .card > div:first-child::after {
+.card-joker > div:first-child::after {
     background:
         radial-gradient(circle at 60% 12%, rgba(170, 239, 255, 0.24) 0%, rgba(170, 239, 255, 0) 18%),
         linear-gradient(180deg, rgba(7, 18, 32, 0.01) 0%, rgba(7, 18, 32, 0.1) 100%);
 }
 
-.main1 .col-md-4:first-child .card > div:first-child img {
+.card-joker > div:first-child img {
     object-fit: contain;
     object-position: left center;
     width: auto;
@@ -113,19 +143,19 @@ body {
     filter: drop-shadow(0 6px 10px rgba(8, 28, 62, 0.18));
 }
 
-.main1 .col-md-4:nth-child(2) .card > div:first-child {
+.card-lotto > div:first-child {
     background:
         linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 11%, transparent 11% 27%, rgba(255, 255, 255, 0.06) 27% 41%, transparent 41% 58%, rgba(255, 255, 255, 0.08) 58% 73%, transparent 73% 100%),
         radial-gradient(circle at 76% 22%, rgba(255, 249, 196, 0.2) 0%, rgba(255, 249, 196, 0) 16%),
         linear-gradient(135deg, #ffde2d 0%, #ffd719 36%, #f1c318 72%, #dfaf19 100%);
 }
 
-.main1 .col-md-4:nth-child(2) .card > div:first-child::after {
+.card-lotto > div:first-child::after {
     background:
         linear-gradient(180deg, rgba(66, 52, 5, 0.01) 0%, rgba(66, 52, 5, 0.08) 100%);
 }
 
-.main1 .col-md-4:nth-child(2) .card > div:first-child img {
+.card-lotto > div:first-child img {
     object-fit: contain;
     object-position: left center;
     width: auto;
@@ -136,7 +166,7 @@ body {
     filter: drop-shadow(0 5px 8px rgba(89, 66, 0, 0.14));
 }
 
-.main2 .col-md-4:nth-child(2) .card > div:first-child img {
+.card-super3 > div:first-child img {
     object-fit: contain;
     object-position: left center;
     width: auto;
@@ -146,7 +176,7 @@ body {
     background: transparent;
 }
 
-.main2 .col-md-4:nth-child(2) .card > div:first-child {
+.card-super3 > div:first-child {
     background:
         radial-gradient(circle at 72% 18%, rgba(158, 219, 255, 0.22) 0%, rgba(158, 219, 255, 0) 16%),
         linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 18%, transparent 18% 52%, rgba(255, 255, 255, 0.03) 52% 68%, transparent 68% 100%),
@@ -154,12 +184,12 @@ body {
         linear-gradient(180deg, #2b68d6 0%, #2256c0 52%, #173f91 100%);
 }
 
-.main2 .col-md-4:nth-child(2) .card > div:first-child::after {
+.card-super3 > div:first-child::after {
     background:
         linear-gradient(180deg, rgba(8, 18, 34, 0.04) 0%, rgba(8, 18, 34, 0.12) 100%);
 }
 
-.main1 .col-md-4:nth-child(3) .card > div:first-child img {
+.card-proto > div:first-child img {
     object-fit: contain;
     object-position: left center;
     width: auto;
@@ -169,7 +199,7 @@ body {
     background: transparent;
 }
 
-.main1 .col-md-4:nth-child(3) .card > div:first-child {
+.card-proto > div:first-child {
     background:
         radial-gradient(circle at 22% 18%, rgba(163, 207, 255, 0.16) 0%, rgba(163, 207, 255, 0) 18%),
         radial-gradient(circle at 78% 22%, rgba(255, 120, 120, 0.18) 0%, rgba(255, 120, 120, 0) 18%),
@@ -178,12 +208,12 @@ body {
         linear-gradient(90deg, #2b5da7 0%, #335f9d 46%, #c64662 64%, #ef4444 100%);
 }
 
-.main1 .col-md-4:nth-child(3) .card > div:first-child::after {
+.card-proto > div:first-child::after {
     background:
         linear-gradient(180deg, rgba(8, 18, 34, 0.04) 0%, rgba(8, 18, 34, 0.12) 100%);
 }
 
-.main2 .col-md-4:nth-child(3) .card > div:first-child img {
+.card-extra5 > div:first-child img {
     object-fit: contain;
     object-position: left center;
     width: auto;
@@ -194,7 +224,7 @@ body {
     filter: saturate(1.08) brightness(1.04) drop-shadow(0 4px 10px rgba(7, 32, 55, 0.2));
 }
 
-.main2 .col-md-4:nth-child(3) .card > div:first-child {
+.card-extra5 > div:first-child {
     background:
         radial-gradient(circle at 8% 18%, rgba(255, 255, 255, 0.16) 0 2%, transparent 2.2%),
         radial-gradient(circle at 72% 14%, rgba(201, 247, 255, 0.2) 0 8%, transparent 8.3%),
@@ -206,8 +236,8 @@ body {
 }
 
 #he,
-.main2 .col-md-4:nth-child(2) .card > div:first-child,
-.main2 .col-md-4:nth-child(3) .card > div:first-child {
+.card-super3 > div:first-child,
+.card-extra5 > div:first-child {
     height: 3.18rem;
     min-height: 3.18rem;
 }
@@ -259,7 +289,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    padding: 0.08rem 0.18rem 0.06rem;
+    padding: 0.11rem 0.18rem 0.09rem;
     font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
     color: #fff;
     font-weight: 800;
@@ -283,7 +313,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.06rem;
+    gap: 0.08rem;
 }
 
 #clockdiv > div > span,
@@ -302,12 +332,12 @@ body {
 
 .smalltext {
     margin-top: 0;
-    font-size: 0.25em;
-    font-weight: 800;
-    letter-spacing: 0.05em;
+    font-size: 0.29em;
+    font-weight: 900;
+    letter-spacing: 0.03em;
     color: var(--accent-yellow);
     text-transform: uppercase;
-    line-height: 1.05;
+    line-height: 1.08;
 }
 
 .kltime {
@@ -328,7 +358,7 @@ body {
 
 #kino .kltime,
 #super3-card .kltime,
-.main2 .col-md-4:nth-child(3) .kltime {
+.card-extra5 .kltime {
     height: 1.86rem;
     min-height: 1.86rem;
     padding-top: 0.1rem;
@@ -350,7 +380,7 @@ body {
     text-align: right;
 }
 
-#ns {
+.ns-label {
     flex: 1;
 }
 
@@ -372,29 +402,24 @@ body {
         linear-gradient(180deg, rgba(25, 52, 82, 0.96) 0%, rgba(15, 33, 53, 0.96) 100%);
 }
 
-.main1 .col-md-4:first-child .circle,
-.main1 .col-md-4:nth-child(2) .circle,
-.main1 .col-md-4:nth-child(3) .circle {
+.top-row-circle {
     height: 2.58rem !important;
     min-height: 2.58rem !important;
     flex-wrap: nowrap;
+    gap: 0.35rem;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     align-content: center;
 }
 
-.main1 .col-md-4:first-child .circle .fa-stack,
-.main1 .col-md-4:nth-child(2) .circle .fa-stack,
-.main1 .col-md-4:nth-child(3) .circle .fa-stack {
+.top-row-circle .fa-stack {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
 }
 
-.main1 .col-md-4:first-child .circle .fa-plus,
-.main1 .col-md-4:nth-child(2) .circle .fa-plus,
-.main1 .col-md-4:nth-child(3) .circle .fa-plus {
+.top-row-circle .fa-plus {
     align-self: center;
     flex: 0 0 auto;
 }
@@ -414,7 +439,9 @@ span.fa-circle {
 .fa-stack-1x {
     font-size: 1.06em;
     font-weight: 900;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.24), 0 1px 8px rgba(0, 0, 0, 0.16);
+    font-family: "Arial Black", "Trebuchet MS", Arial, sans-serif;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.24), 0 1px 6px rgba(0, 0, 0, 0.12);
+    letter-spacing: -0.02em;
 }
 
 .fa-plus {
@@ -434,6 +461,42 @@ span.fa-circle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+.pending-badge {
+    font-size: 0.68em;
+    letter-spacing: 0.02em;
+}
+
+.results-pending .fa-stack {
+    opacity: 0.56;
+    animation: pending-pulse 1.8s ease-in-out infinite;
+}
+
+.game-ball-enter {
+    transform: scale(1.1);
+    filter: brightness(1.06);
+}
+
+.game-ball-resetting {
+    opacity: 0.34;
+    transform: scale(0.9);
+}
+
+.main1 .circle .fa-stack {
+    transition:
+        transform 220ms ease,
+        opacity 220ms ease,
+        filter 220ms ease;
+}
+
+@keyframes pending-pulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.7;
+    }
 }
 
 .bonus-ball {
@@ -539,6 +602,35 @@ span.fa-circle {
     width: 100%;
 }
 
+.super3-balls .fa-stack {
+    width: 1.92em;
+    height: 1.92em;
+    line-height: 1.92em;
+    transition:
+        transform 220ms ease,
+        opacity 220ms ease,
+        filter 220ms ease;
+}
+
+.super3-balls .fa-stack-1x {
+    font-size: 1.08em;
+    font-weight: 900;
+}
+
+.super3-balls .fa-circle {
+    filter: drop-shadow(0 0 10px rgba(255, 224, 87, 0.16));
+}
+
+.super3-balls .super3-ball-enter {
+    transform: scale(1.1);
+    filter: brightness(1.06);
+}
+
+.super3-balls .super3-ball-resetting {
+    opacity: 0.34;
+    transform: scale(0.9);
+}
+
 .super3-color-chip {
     position: absolute;
     left: calc(50% + 4.8rem);
@@ -606,16 +698,24 @@ span.fa-circle {
         inset 0 -10px 18px rgba(0, 0, 0, 0.12);
 }
 
-.main2 .col-md-4:nth-child(2) .circle,
-.main2 .col-md-4:nth-child(3) .circle {
+.card-super3 .circle,
+.card-extra5 .circle {
     height: 2.46rem;
     min-height: 2.46rem;
+    gap: 0.35rem;
     align-content: center;
+}
+
+.card-extra5 .circle .fa-stack {
+    transition:
+        transform 220ms ease,
+        opacity 220ms ease,
+        filter 220ms ease;
 }
 
 #super3-card table tr:first-child th,
 #super3-card table tr:nth-child(5) th,
-.main2 .col-md-4:nth-child(3) table tr:first-child th {
+.card-extra5 table tr:first-child th {
     height: 1.64rem;
     vertical-align: middle;
     line-height: 1.08;
@@ -638,21 +738,6 @@ span.fa-circle {
     padding: 0.14rem 0.42rem;
 }
 
-.ml4 {
-    font-weight: 1000;
-    font-size: 1.5em;
-    color: var(--accent-yellow);
-    font-family: "Permanent Marker", cursive;
-}
-
-.red {
-    color: red !important;
-}
-
-.flas {
-    color: white;
-}
-
 #he {
     background:
         url('img/kino-logo.svg') center / 14% no-repeat,
@@ -660,58 +745,158 @@ span.fa-circle {
         linear-gradient(135deg, #f3aa18 0%, #efa316 38%, #e69011 70%, #db860e 100%);
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center !important;
     position: relative;
-    padding: 0.75rem 0.95rem;
+    padding: 0.08rem 0.7rem 0.18rem;
     font-size: 0.92em;
     font-weight: 800;
+    background-position: calc(50% + 0.28rem) -0.12rem, center, center;
 }
 
-#he > span {
-    padding: 0.16rem 0.5rem;
+.kino-header-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.14rem 0.38rem;
     color: #ffffff;
     background: linear-gradient(180deg, rgba(29, 55, 87, 0.92) 0%, rgba(14, 28, 45, 0.94) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
     line-height: 1;
+    font-size: 0.92em;
 }
 
 #klk {
     position: absolute;
-    left: 0.35rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0.12rem;
     z-index: 2;
+    left: 0.52rem;
+    min-width: 9.9rem;
 }
 
 #or {
     position: absolute;
-    right: 0.35rem;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 0.52rem;
+    top: 0.12rem;
     z-index: 2;
+    min-width: 9.55rem;
+    font-size: 0.96em;
+}
+
+#kino {
+    display: flex;
+    flex-direction: column;
 }
 
 #first tr {
     background-color: #15273c;
-    font-size: 1.1em;
+    font-size: 1.16em;
+}
+
+#kino-grid-wrap {
+    width: 100%;
+    margin-top: 0.12rem;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+    height: calc(100% - 7.55rem);
+    flex: 1 1 auto;
+    overflow: hidden;
+    border-radius: 0 0 0.82rem 0.82rem;
+    background: transparent;
+    box-sizing: border-box;
 }
 
 #kino table {
-    width: calc(100% - 0.92rem);
-    margin-top: 0.12rem;
-    margin-bottom: 0.14rem;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    margin: 0;
     border-collapse: separate;
     border-spacing: 0;
-    height: calc(100% - 3.78rem);
+    height: 100%;
+    clip-path: inset(0);
 }
 
 #kino td {
-    font-weight: 800;
+    font-weight: 900;
+    font-family: "Arial Black", "Trebuchet MS", Arial, sans-serif;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+    letter-spacing: -0.015em;
+}
+
+#kino-winners {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.16rem;
+    width: 100%;
+    margin-top: 1.56rem;
+    padding: 0 0.12rem;
+    min-height: 1.82rem;
+}
+
+.kino-winner-pill,
+.kino-winner-empty,
+.kino-winner-rotator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 0.92rem;
+    padding: 0.14rem 0.34rem;
+    border-radius: 0.7rem;
+    background: linear-gradient(180deg, rgba(15, 33, 55, 0.96) 0%, rgba(8, 18, 31, 0.94) 100%);
+    border: 1px solid rgba(255, 224, 102, 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.kino-winner-rotator {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.16rem;
+    min-width: 18.2rem;
+    min-height: 0.92rem;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    opacity: 0.38;
+    transform: translateY(6px);
+    transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.kino-winner-rotator.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.kino-winner-amount {
+    font-size: 0.66em;
+    font-weight: 900;
+    color: #ffe463;
+    line-height: 1.05;
+}
+
+.kino-winner-count {
+    font-size: 0.56em;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.05;
+    margin-left: 0.28rem;
+}
+
+.kino-winner-empty {
+    align-items: center;
+    text-align: center;
+    font-size: 0.62em;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.82);
 }
 
 #first td {
@@ -719,6 +904,41 @@ span.fa-circle {
         linear-gradient(180deg, rgba(22, 39, 60, 0.98) 0%, rgba(16, 29, 45, 0.98) 100%);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
     background-clip: padding-box;
+    color: #ffffff;
+    border: 1px solid rgba(8, 14, 22, 0.88);
+    border-radius: 0.16rem;
+    transition:
+        background 220ms ease,
+        color 220ms ease,
+        transform 220ms ease,
+        opacity 220ms ease,
+        box-shadow 220ms ease,
+        border-color 220ms ease;
+}
+
+#first td.kino-cell-winning {
+    background: linear-gradient(180deg, #ffe56a 0%, #ffd43b 100%);
+    color: #111111;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.32);
+    border-color: rgba(0, 0, 0, 0.92);
+}
+
+#first td.kino-cell-bonus {
+    background: linear-gradient(180deg, #ff3e30 0%, #ff1400 100%);
+    color: #ffffff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    border-color: rgba(0, 0, 0, 0.92);
+}
+
+#first td.kino-cell-enter {
+    transform: scale(1.08);
+}
+
+#first td.kino-cell-resetting {
+    opacity: 0.28;
+    transform: scale(0.92);
 }
 
 .main1 .col-md-4:first-child .card th,
@@ -727,71 +947,79 @@ span.fa-circle {
     padding-bottom: 0.11rem;
 }
 
-.main1 .col-md-4:nth-child(3) .card th,
-.main1 .col-md-4:nth-child(3) .card td {
+.card-proto th,
+.card-proto td {
     padding-left: 0.12rem;
     padding-right: 0.12rem;
 }
 
-.main1 .col-md-4:nth-child(3) .card th:first-child,
-.main1 .col-md-4:nth-child(3) .card td:first-child {
+.card-proto th:first-child,
+.card-proto td:first-child {
     width: 12%;
 }
 
-.main1 .col-md-4:nth-child(3) .card th:nth-child(2),
-.main1 .col-md-4:nth-child(3) .card td:nth-child(2) {
+.card-proto th:nth-child(2),
+.card-proto td:nth-child(2) {
     width: 38%;
 }
 
-.main1 .col-md-4:nth-child(3) .card th:nth-child(3),
-.main1 .col-md-4:nth-child(3) .card td:nth-child(3) {
+.card-proto th:nth-child(3),
+.card-proto td:nth-child(3) {
     width: 22%;
 }
 
-.main1 .col-md-4:nth-child(3) .card th:nth-child(4),
-.main1 .col-md-4:nth-child(3) .card td:nth-child(4) {
+.card-proto th:nth-child(4),
+.card-proto td:nth-child(4) {
     width: 28%;
 }
 
-.main1 .col-md-4:nth-child(3) .card th {
+.card-proto th {
     font-size: 0.69em;
 }
 
-.main2 .col-md-4:nth-child(2) .card .kltime {
+.card-super3 .kltime {
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
 }
 
-.main2 .col-md-4:nth-child(2) .card .circle {
+.card-super3 .circle {
     padding-top: 0.12rem;
     padding-bottom: 0.1rem;
 }
 
-.main2 .col-md-4:nth-child(2) .card table th,
-.main2 .col-md-4:nth-child(2) .card table td {
+.card-super3 table th,
+.card-super3 table td {
     padding-top: 0.08rem;
     padding-bottom: 0.08rem;
 }
 
 @media (max-height: 780px) {
-    .main1 .col-md-4:first-child .card .kltime,
-    .main2 .col-md-4:nth-child(2) .card .kltime {
+    .card-joker .kltime,
+    .card-lotto .kltime,
+    .card-proto .kltime,
+    .card-super3 .kltime {
         padding-top: 0.14rem;
         padding-bottom: 0.14rem;
         font-size: 0.72em;
     }
 
-    .main1 .col-md-4:first-child .card .circle,
-    .main2 .col-md-4:nth-child(2) .card .circle {
+    .card-joker .top-row-circle,
+    .card-lotto .top-row-circle,
+    .card-proto .top-row-circle,
+    .card-super3 .circle {
         padding-top: 0.18rem;
         padding-bottom: 0.16rem;
         font-size: 0.84em;
     }
 
-    .main1 .col-md-4:first-child .card th,
-    .main1 .col-md-4:first-child .card td,
-    .main2 .col-md-4:nth-child(2) .card th,
-    .main2 .col-md-4:nth-child(2) .card td {
+    .card-joker th,
+    .card-joker td,
+    .card-lotto th,
+    .card-lotto td,
+    .card-proto th,
+    .card-proto td,
+    .card-super3 th,
+    .card-super3 td {
         padding-top: 0.09rem;
         padding-bottom: 0.09rem;
         font-size: 0.68em;
@@ -799,35 +1027,44 @@ span.fa-circle {
 }
 
 @media (max-height: 730px) {
-    .main1 .col-md-4:first-child .card .kltime,
-    .main2 .col-md-4:nth-child(2) .card .kltime {
+    .card-joker .kltime,
+    .card-lotto .kltime,
+    .card-proto .kltime,
+    .card-super3 .kltime {
         padding-top: 0.11rem;
         padding-bottom: 0.11rem;
         font-size: 0.66em;
     }
 
-    .main1 .col-md-4:first-child .card .circle,
-    .main2 .col-md-4:nth-child(2) .card .circle {
+    .card-joker .top-row-circle,
+    .card-lotto .top-row-circle,
+    .card-proto .top-row-circle,
+    .card-super3 .circle {
         padding-top: 0.14rem;
         padding-bottom: 0.12rem;
         font-size: 0.8em;
     }
 
-    .main1 .col-md-4:first-child .card th,
-    .main1 .col-md-4:first-child .card td,
-    .main2 .col-md-4:nth-child(2) .card th,
-    .main2 .col-md-4:nth-child(2) .card td {
+    .card-joker th,
+    .card-joker td,
+    .card-lotto th,
+    .card-lotto td,
+    .card-proto th,
+    .card-proto td,
+    .card-super3 th,
+    .card-super3 td {
         padding-top: 0.07rem;
         padding-bottom: 0.07rem;
         font-size: 0.64em;
     }
 
-    .main2 .col-md-4:nth-child(2) .card table {
+    .card-super3 table {
         font-size: 0.88em;
     }
 
-    #kino table {
-        width: calc(100% - 0.64rem);
+    #kino-grid-wrap {
+        padding-left: 0;
+        padding-right: 0;
         margin-top: 0.12rem;
     }
 }
@@ -995,5 +1232,40 @@ span.fa-circle {
     #he {
         background-size: 32%;
         padding: 0.42rem 0.55rem;
+    }
+}
+
+/* 1366x768 tuning: keep main balls the same visual size as Extra 5 */
+@media (min-width: 1200px) and (max-height: 780px) {
+    .card-joker .top-row-circle,
+    .card-lotto .top-row-circle,
+    .card-proto .top-row-circle,
+    .card-super3 .circle {
+        font-size: 1em !important;
+        gap: 0.35rem !important;
+    }
+
+    .card-joker .top-row-circle .fa-stack,
+    .card-lotto .top-row-circle .fa-stack,
+    .card-proto .top-row-circle .fa-stack {
+        width: 1.88em !important;
+        height: 1.88em !important;
+        line-height: 1.88em !important;
+    }
+
+    .card-joker .top-row-circle .fa-stack-1x,
+    .card-lotto .top-row-circle .fa-stack-1x,
+    .card-proto .top-row-circle .fa-stack-1x {
+        font-size: 1.06em !important;
+    }
+
+    .card-super3 .super3-balls .fa-stack {
+        width: 1.92em !important;
+        height: 1.92em !important;
+        line-height: 1.92em !important;
+    }
+
+    .card-super3 .super3-balls .fa-stack-1x {
+        font-size: 1.08em !important;
     }
 }

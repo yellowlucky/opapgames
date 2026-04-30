@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    var previousDrawId = null;
+
     OpapApp.startPolling({
         key: 'lotto',
         gameId: 5103,
@@ -9,15 +11,23 @@
         onData: function (data) {
             var currentDraw = data[1];
             var nextDraw = data[0];
+            var isPending = OpapApp.isWithinPendingWindow(nextDraw.drawTime, 60000);
+            var shouldAnimate = previousDrawId != null && previousDrawId !== currentDraw.drawId;
             var prizeCategories = currentDraw.prizeCategories;
             var firstCategory = prizeCategories[0];
             var jackpotNode = document.getElementById('jakpotlotto');
+            var sortedNumbers = currentDraw.winningNumbers.list.slice().sort(function (left, right) {
+                return left - right;
+            });
 
             OpapApp.updateDrawMeta('timeLotto', 'klLotto', currentDraw);
-            OpapApp.renderNumberList(
+            OpapApp.animateNumberList(
+                'lotto-main',
                 ['lotto1', 'lotto2', 'lotto3', 'lotto4', 'lotto5', 'lotto6'],
-                currentDraw.winningNumbers.list
+                sortedNumbers,
+                shouldAnimate
             );
+            OpapApp.setPendingState('timeLotto', '.main1 .col-md-4:nth-child(2) .circle', isPending);
 
             OpapApp.setText('d6', OpapApp.formatAmount(OpapApp.toNumber(firstCategory.jackpot) + OpapApp.toNumber(firstCategory.distributed)));
             OpapApp.setText('e6', firstCategory.winners);
@@ -45,6 +55,7 @@
             OpapApp.setText('f3', OpapApp.formatAmount(prizeCategories[4].fixed));
 
             OpapApp.applyCountdown('clockdiv2', nextDraw.drawTime);
+            previousDrawId = currentDraw.drawId;
         }
     });
 })();
