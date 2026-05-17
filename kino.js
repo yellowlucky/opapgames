@@ -204,7 +204,7 @@
     OpapApp.startPolling({
         key: 'kino',
         gameId: 1100,
-        intervalMs: 15000,
+        intervalMs: 5000,
         fetchCount: 2,
         onData: function (data) {
             var currentDraw = data[1];
